@@ -3,10 +3,25 @@
 <mapper namespace="com.green.greenshare.environment.EnvironmentMapper">
     <!-- 쿼리 작성 -->
 
+    <!-- 온도 조도 최신 5개값 받아오는 쿼리 -->
     <select id="environmentlist" resultType="environmentDTO">
         SELECT * FROM ENVIRONMENT
+        ORDER BY JOIN_DATE DESC
+        LIMIT 0,5
     </select>
 
+    <!-- 온도 조도 가장 최신값 받아오는 쿼리 -->
+    <select id="latestData" resultType="environmentDTO">
+        SELECT * FROM ENVIRONMENT
+        ORDER BY JOIN_DATE
+        LIMIT 0,1
+    </select>
 
+    <!-- 온도 조도 최근 한시간 데이터 받아오기 -->
+    <select id="latestData12" resultType="environmentDTO">
+        SELECT * FROM ENVIRONMENT
+        ORDER BY JOIN_DATE
+        LIMIT 0,12
+    </select>
 
 </mapper>

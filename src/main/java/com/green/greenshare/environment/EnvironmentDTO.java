@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @ToString
 public class EnvironmentDTO {
   private int envId;
-  private int temperature;
+  private float temperature;
   private int illuminance;
-  private LocalDateTime joinData;
+  private LocalDateTime joinDate;
 
 }

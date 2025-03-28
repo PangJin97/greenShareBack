@@ -6,4 +6,8 @@ public interface EnvironmentService {
 
   public List<EnvironmentDTO> environmentlist(EnvironmentDTO environmentDTO);
 
+  EnvironmentDTO latestData();
+
+  List<EnvironmentDTO> latestData12();
+
 }

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 public class EnvironmentDTO {
-  private int envId;
+  private double envId;
   private int temperature;
   private int illuminance;
   private LocalDateTime joinData;

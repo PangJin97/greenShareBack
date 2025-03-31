@@ -15,4 +15,14 @@ public class EnvironmentServiceimpl implements EnvironmentService {
   public List<EnvironmentDTO> environmentlist(EnvironmentDTO environmentDTO) {
     return environmentMapper.environmentlist(environmentDTO);
   }
+
+  @Override
+  public List<EnvironmentDTO> latestData12() {
+    return environmentMapper.latestData12();
+  }
+
+  @Override
+  public EnvironmentDTO latestData() {
+    return environmentMapper.latestData();
+  }
 }

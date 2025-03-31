@@ -12,7 +12,9 @@ import java.time.LocalDateTime;
 public class EnvironmentDTO {
   private double envId;
   private int temperature;
+  private int envId;
+  private float temperature;
   private int illuminance;
-  private LocalDateTime joinData;
+  private LocalDateTime joinDate;
 
 }

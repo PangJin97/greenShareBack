@@ -12,12 +12,23 @@ import java.util.List;
 @RestController()
 @RequestMapping("/environment")
 public class EnvironmentController {
-  private final EnvironmentMapper environmentMapper;
+  private final EnvironmentService environmentService;
 
   @GetMapping("")
   public List<EnvironmentDTO> environmentlist(EnvironmentDTO environmentDTO){
-  return  environmentMapper.environmentlist(environmentDTO);
+  return  environmentService.environmentlist(environmentDTO);
 
   }
+
+
+  @GetMapping("/latest")
+  public  EnvironmentDTO lastestData (){
+    return environmentService.latestData();
+  }
+  @GetMapping("/latestHour")
+  public  List<EnvironmentDTO> lastestData12 (){
+    return environmentService.latestData12();
+  }
+
 
 }

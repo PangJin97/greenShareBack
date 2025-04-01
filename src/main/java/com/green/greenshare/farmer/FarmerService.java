@@ -3,6 +3,7 @@ package com.green.greenshare.farmer;
 import java.util.List;
 
 public interface FarmerService {
+
   //조회
   public List<FarmerDTO> farmerList();
 

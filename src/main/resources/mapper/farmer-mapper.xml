@@ -2,4 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.greenshare.farmer.FarmerMapper">
     <!-- 쿼리 작성 -->
+    <!-- 공지사항 조회-->
+    <select id="farmerList" resultType="FarmerDTO">
+        SELECT
+        Board_NUM,
+        TITLE,
+        WRITER,
+        VIEWS,
+        CONTENT,
+        DATE
+        FROM TEST
+    </select>
+
+    <!--상세조회-->
+    <select id="selectFarmer" resultType="FarmerDTO">
+        SELECT
+        Board_NUM,
+        TITLE,
+        WRITER,
+        CONTENT,
+        VIEWS,
+        DATE
+        FROM TEST
+        WHERE Board_NUM = #{boardNum}
+    </select>
+
+    <!--등록-->
+    <insert id="insertFarmers">
+        INSERT INTO Test(
+        TITLE,
+        WRITER,
+        CONTENT
+        )
+        VALUES(
+        #{title},
+        #{writer},
+        #{content}
+    )
+    </insert>
+    <!--수정-->
+    <update id="updateFarmers">
+        UPDATE TEST
+        SET
+        TITLE = #{title},
+        CONTENT = #{content}
+        WHERE BOARD_NUM = #{boardNum}
+    </update>
+
+    <!--삭제-->
+    <delete id="deleteFarmers">
+        DELETE FROM TEST
+        WHERE BOARD_NUM = #{boardNum}
+
+    </delete>
+
+    <!--조회수 증가-->
+    <update id="updateViews">
+        UPDATE TEST
+        SET
+        VIEWS = VIEWS + 1
+        WHERE BOARD_NUM = #{board_num}
+    </update>
 </mapper>

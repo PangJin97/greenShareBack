@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.greenshare.farmer.ReplyFarmerMapper">
+
+    <!--댓글 기능-->
+
+    <!--댓글 조회-->
+    <select id="replySelect" resultType="ReplyFarmersDTO">
+        SELECT * FROM REPLY_FARMERS
+        WHERE BOARD_NUM = #{boardNum}
+    </select>
+
+    <!--댓글 등록-->
+    <insert id="insertReply">
+        INSERT INTO REPLY_FARMERS
+        (WRITER,
+        CONTENT,
+        BOARD_NUM)
+        VALUES
+        (
+        #{writer},
+        #{content},
+        #{boardNum}
+        )
+    </insert>
+
+    <!--댓글 삭제-->
+    <delete id="deleteReply">
+        DELETE FROM REPLY_FARMERS
+        WHERE REPLY_NUM=#{replyNum}
+    </delete>
+
+</mapper>

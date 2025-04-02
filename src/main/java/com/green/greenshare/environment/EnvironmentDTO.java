@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @ToString
+//2025.04.02 수정
 public class EnvironmentDTO {
   private int envId;
   private float temperature;

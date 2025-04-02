@@ -12,6 +12,8 @@ import lombok.ToString;
 public class PlantDTO {
   //각 작물의 고유 id
   private int id;
+  //각 작물의 이름
+  private String crop;
   //작물의 적정온도
   private double tempMin;
   private double tempMax;
@@ -26,4 +28,6 @@ public class PlantDTO {
   private int luxMax;
   private int adcMin;
   private int adcMax;
+  //이미지 파일
+  private String imgName;
 }

@@ -5,6 +5,7 @@
     <!--기준작물 resultMap(조인할때 사용가능)-->
     <resultMap id="crops" type="PlantDTO">
         <id column="ID" property="id" />
+        <result column="CROP" property="crop"/>
         <result column="TEMP_MIN" property="tempMin" />
         <result column="TEMP_MAX" property="tempMax" />
         <result column="HUMID_MIN" property="humidMin" />
@@ -15,6 +16,7 @@
         <result column="LUX_MAX" property="luxMax" />
         <result column="ADC_MIN" property="adcMin" />
         <result column="ADC_MAX" property="adcMax" />
+        <result column="IMG_NAME" property="imgName"/>
     </resultMap>
 
     <!--기준작물 조회-->

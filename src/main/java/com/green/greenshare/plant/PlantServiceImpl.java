@@ -1,7 +1,19 @@
 package com.green.greenshare.plant;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class PlantServiceImpl {
+@RequiredArgsConstructor
+public class PlantServiceImpl implements PlantService {
+
+  private final PlantMapper plantMapper;
+
+  /*기본작물 조회*/
+  @Override
+  public List<PlantDTO> getCropStandards() {
+    return plantMapper.getCropStandards();
+  }
 }

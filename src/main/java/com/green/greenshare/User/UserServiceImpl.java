@@ -1,8 +1,16 @@
 package com.green.greenshare.User;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl {
+@RequiredArgsConstructor
+public class UserServiceImpl implements  UserService{
+  private final  UserMapper userMapper;
 
+
+  @Override
+  public void insertUserList(UserDTO userDTO) {
+    userMapper.insertUserList(userDTO);
+  }
 }

@@ -11,8 +11,6 @@ import java.time.LocalDateTime;
 @ToString
 //2025.04.02 수정
 public class EnvironmentDTO {
-  private double envId;
-  private int temperature;
   private int envId;
   private float temperature;
   private int illuminance;

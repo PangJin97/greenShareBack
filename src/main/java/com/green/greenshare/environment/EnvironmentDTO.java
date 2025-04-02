@@ -15,5 +15,4 @@ public class EnvironmentDTO {
   private float temperature;
   private int illuminance;
   private LocalDateTime joinDate;
-
 }

@@ -14,6 +14,7 @@ public class PlantServiceImpl implements PlantService {
   /*기본작물 조회*/
   @Override
   public List<PlantDTO> getCropStandards() {
+
     return plantMapper.getCropStandards();
   }
 }

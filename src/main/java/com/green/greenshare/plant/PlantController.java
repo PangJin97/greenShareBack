@@ -2,6 +2,7 @@ package com.green.greenshare.plant;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,4 +19,14 @@ public class PlantController {
   public List<PlantDTO> getCropStandards(){
     return plantService.getCropStandards();
   }
+
+  /*작물 상세 조회*/
+  @GetMapping("/{id}")
+  public PlantDTO getSelectCropList(@PathVariable("id")String id ){
+    return plantService.getSelectCropList(id);
+  }
+
+
+
+
 }

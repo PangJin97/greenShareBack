@@ -25,6 +25,7 @@ public class EnvironmentController {
   public  EnvironmentDTO lastestData (){
     return environmentService.latestData();
   }
+
   @GetMapping("/latestHour")
   public  List<EnvironmentDTO> lastestData12 (){
     return environmentService.latestData12();

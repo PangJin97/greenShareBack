@@ -28,6 +28,7 @@ public class PlantDTO {
   private int luxMax;
   private int adcMin;
   private int adcMax;
+  private String engName;
   //이미지 파일
   private String imgName;
 }

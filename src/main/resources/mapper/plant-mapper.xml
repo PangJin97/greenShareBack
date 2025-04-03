@@ -16,6 +16,7 @@
         <result column="LUX_MAX" property="luxMax" />
         <result column="ADC_MIN" property="adcMin" />
         <result column="ADC_MAX" property="adcMax" />
+        <result column="ENG_NAME" property="engName"/>
         <result column="IMG_NAME" property="imgName"/>
     </resultMap>
 

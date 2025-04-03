@@ -16,4 +16,6 @@ public class EnvironmentDTO {
   private int illuminance;
   private LocalDateTime joinDate;
   private float humidity;
+  private float soilMoisture;
+
 }

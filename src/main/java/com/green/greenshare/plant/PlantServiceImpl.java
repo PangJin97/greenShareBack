@@ -16,4 +16,10 @@ public class PlantServiceImpl implements PlantService {
   public List<PlantDTO> getCropStandards() {
     return plantMapper.getCropStandards();
   }
+
+  /*작물 상세 조회*/
+  @Override
+  public PlantDTO getSelectCropList(String id) {
+    return plantMapper.getSelectCropList(id);
+  }
 }

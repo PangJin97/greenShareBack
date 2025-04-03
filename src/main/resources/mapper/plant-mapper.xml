@@ -24,8 +24,14 @@
         SELECT * FROM CROP_STANDARDS
     </select>
 
+
     
 
+
+    <select id="getSelectCropList" resultType="PlantDTO">
+        SELECT * FROM CROP_STANDARDS
+        WHERE ID = #{id}
+    </select>
 
 
 </mapper>

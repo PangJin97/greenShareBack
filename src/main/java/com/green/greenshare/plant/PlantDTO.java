@@ -31,4 +31,6 @@ public class PlantDTO {
   private String engName;
   //이미지 파일
   private String imgName;
+  //작물의 설명
+  private String description;
 }

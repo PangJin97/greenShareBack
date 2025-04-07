@@ -18,6 +18,7 @@
         <result column="ADC_MAX" property="adcMax" />
         <result column="ENG_NAME" property="engName"/>
         <result column="IMG_NAME" property="imgName"/>
+        <result column="DESCRIPTION" property="description"/>
     </resultMap>
 
     <!--기준작물 조회-->
@@ -25,11 +26,8 @@
         SELECT * FROM CROP_STANDARDS
     </select>
 
-
-    
-
-
-    <select id="getSelectCropList" resultType="PlantDTO">
+    <!--기준 작물 상세 조회-->
+    <select id="getSelectCropList" resultMap="crops">
         SELECT * FROM CROP_STANDARDS
         WHERE ID = #{id}
     </select>

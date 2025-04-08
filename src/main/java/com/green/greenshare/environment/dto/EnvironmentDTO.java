@@ -1,0 +1,21 @@
+package com.green.greenshare.environment.dto;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.time.LocalDateTime;
+
+@Setter
+@Getter
+@ToString
+//2025.04.02 수정
+public class EnvironmentDTO {
+  private int envId;
+  private float temperature;
+  private int illuminance;
+  private LocalDateTime joinDate;
+  private float humidity;
+  private float soilMoisture;
+
+}

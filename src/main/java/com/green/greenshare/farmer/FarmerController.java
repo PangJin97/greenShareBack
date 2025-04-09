@@ -14,8 +14,9 @@ public class FarmerController {
 
   //목록 조회
   @GetMapping("")
-  public List<FarmerDTO> farmerList(){
-    return farmerService.farmerList();
+  public List<FarmerDTO> farmerList(FarmerDTO farmerDTO){
+    System.out.println(farmerDTO);
+    return farmerService.farmerList(farmerDTO);
   }
 
   //상세조회

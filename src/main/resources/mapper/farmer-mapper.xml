@@ -2,16 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.greenshare.farmer.FarmerMapper">
     <!-- 쿼리 작성 -->
+
+    <resultMap id="board" type="FarmerDTO">
+        <id     column="BOARD_NUM"          property="boardNum"/>
+        <result column="TITLE"              property="title"/>
+        <result column="WRITER"             property="writer"/>
+        <result column="VIEWS"              property="views"/>
+        <result column="CONTENT"            property="content"/>
+        <result column="DATE"               property="date"/>
+        <result column="SELECT_WORD"        property="selectWord"/>
+        <result column="SELECT_LOG"         property="searchLog"/>
+        <association property="replyFarmersDTO" javaType="replyFarmersDTO">
+            <id column="REPLY_NUM" property="replyNum"/>
+            <result column="CONTENT" property="content"/>
+            <result column="WRITER" property="writer"/>
+            <result column="DATE" property="date"/>
+            <result column="BOARD_NUM" property="boardNum"/>
+        </association>
+    </resultMap>
     <!-- 공지사항 조회-->
-    <select id="farmerList" resultType="FarmerDTO">
+    <select id="farmerList" resultMap="board">
         SELECT
-        Board_NUM,
+        BOARD_NUM,
         TITLE,
         WRITER,
         VIEWS,
         CONTENT,
         DATE
-        FROM TEST
+        FROM BOARD_FARMERS
+        <if test='searchLog != null and !searchLog.equals("")'>
+            WHERE ${selectWord} LIKE CONCAT ('%',#{searchLog}, '%')
+        </if>
     </select>
 
     <!--상세조회-->
@@ -23,13 +44,13 @@
         CONTENT,
         VIEWS,
         DATE
-        FROM TEST
+        FROM BOARD_FARMERS
         WHERE Board_NUM = #{boardNum}
     </select>
 
     <!--등록-->
     <insert id="insertFarmers">
-        INSERT INTO Test(
+        INSERT INTO BOARD_FARMERS(
         TITLE,
         WRITER,
         CONTENT
@@ -42,7 +63,7 @@
     </insert>
     <!--수정-->
     <update id="updateFarmers">
-        UPDATE TEST
+        UPDATE BOARD_FARMERS
         SET
         TITLE = #{title},
         CONTENT = #{content}
@@ -51,14 +72,13 @@
 
     <!--삭제-->
     <delete id="deleteFarmers">
-        DELETE FROM TEST
+        DELETE FROM BOARD_FARMERS
         WHERE BOARD_NUM = #{boardNum}
-
     </delete>
 
     <!--조회수 증가-->
     <update id="updateViews">
-        UPDATE TEST
+        UPDATE BOARD_FARMERS
         SET
         VIEWS = VIEWS + 1
         WHERE BOARD_NUM = #{board_num}

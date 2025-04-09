@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.greenshare.user.UserMapper">
+
+                                     <!--QNA 게시판기능-->
+
+<!--    &lt;!&ndash;QNA 목록 조회&ndash;&gt;-->
+<!--    <select id="" resultType="">-->
+<!--        SELECT * FROM QNA_REPLY-->
+<!--        WHERE REPLY_NUM = #{replyNum}-->
+<!--    </select>-->
+
+
+    <!--QNA 등록-->
+
+
+
+  </mapper>

@@ -1,18 +1,19 @@
-package com.green.greenshare.farmer;
+package com.green.greenshare.user;
 
+import com.green.greenshare.farmer.ReplyFarmersDTO;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class FarmerDTO {
-  private int boardNum;
+public class UserDTO {
+  private int qnaNum;
+  private String status;
   private String title;
   private String writer;
   private String content;
-  private int views;
   private LocalDateTime date;
-  private String selectWord;
   private String searchLog;
-  private ReplyFarmersDTO replyFarmersDTO;
+  private String selectWord;
+
 }

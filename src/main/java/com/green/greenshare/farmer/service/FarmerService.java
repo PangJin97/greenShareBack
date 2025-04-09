@@ -7,7 +7,7 @@ import java.util.List;
 public interface FarmerService {
 
   //조회
-  public List<FarmerDTO> farmerList();
+  public List<FarmerDTO> farmerList(FarmerDTO farmerDTO);
 
   //상세 정보 조회 쿼리
   public FarmerDTO selectFarmer(int boardNum);

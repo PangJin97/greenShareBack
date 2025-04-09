@@ -18,10 +18,10 @@ public class FarmerController {
 
   //목록 조회
   @GetMapping("")
-  public ResponseEntity<?> farmerList(){
+  public ResponseEntity<?> farmerList(FarmerDTO farmerDTO){
 
     try {
-      List<FarmerDTO> farmers = farmerService.farmerList();
+      List<FarmerDTO> farmers = farmerService.farmerList(farmerDTO);
 
       return ResponseEntity.status(HttpStatus.OK).body(farmers);
 

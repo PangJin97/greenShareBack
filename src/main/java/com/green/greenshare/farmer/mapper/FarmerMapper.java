@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface FarmerMapper {
   //조회
-  public List<FarmerDTO> farmerList();
+  public List<FarmerDTO> farmerList(FarmerDTO farmerDTO);
 
   //상세 정보 조회
   public FarmerDTO selectFarmer(int boardNum);

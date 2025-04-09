@@ -14,8 +14,8 @@ public class FarmerServiceImpl implements FarmerService{
 
   //조회
   @Override
-  public List<FarmerDTO> farmerList() {
-    return farmerMapper.farmerList();
+  public List<FarmerDTO> farmerList(FarmerDTO farmerDTO) {
+    return farmerMapper.farmerList(farmerDTO);
   }
 
   //상세조회

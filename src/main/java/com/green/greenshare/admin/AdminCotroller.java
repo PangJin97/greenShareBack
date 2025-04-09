@@ -1,9 +1,0 @@
-package com.green.greenshare.admin;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-@RequestMapping("/admins")
-public class AdminCotroller {
-}

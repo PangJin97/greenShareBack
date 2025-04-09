@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.green.greenshare.environment.EnvironmentMapper">
+<mapper namespace="com.green.greenshare.environment.mapper.EnvironmentMapper">
     <!-- 쿼리 작성 -->
 
     <!-- 온도 조도 최신 5개값 받아오는 쿼리 -->
@@ -23,5 +23,7 @@
         ORDER BY JOIN_DATE
         LIMIT 0,12
     </select>
+
+    
 
 </mapper>

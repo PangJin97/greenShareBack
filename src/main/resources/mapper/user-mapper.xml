@@ -1,50 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.green.greenshare.user.UserMapper">
-    <!--QNA 목록 조회-->
-    <select id="qnaList" resultType="UserDTO">
-        SELECT * FROM QNA_BOARD
-        <if test='searchLog != null and !searchLog.equals("")'>
-            WHERE ${selectWord} LIKE CONCAT ('%',#{searchLog}, '%')
-        </if>
-    </select>
+<mapper namespace="com.green.greenshare.user.mapper.UserMapper">
 
-    <!--QNA 상세보기-->
-    <select id="selectQna" resultType="UserDTO">
-        SELECT * FROM QNA_BOARD
-        WHERE QNA_NUM = #{qnaNum}
-    </select>
-
-    <!--QNA 등록-->
-    <insert id="insertQna">
-        INSERT INTO QNA_BOARD(
-        TITLE,
-        WRITER,
-        CONTENT,
-        DATE,
-        STATUS
-        )
-        VALUES(
-        #{title},
-        #{writer},
-        #{content},
-        #{date},
-        #{status}
-        )
-    </insert>
-
-    <!--QNA 수정-->
-    <update id="updateQna">
-        UPDATE SET
-        CONTENT = #{content}
-        TITLE = #{title}
-    </update>
-    <!--QNA 질문 삭제-->
-    <delete id="deleteQna">
-        DELETE FROM QNA_BOARD
-        WHERE QNA_NUM = #{qnaNum}
-    </delete>
 
 
     <resultMap id="user" type="UserDTO">

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 public class UserDTO {
   private String userEmail;
-  private String userPasswod;
+  private String userPassword;
   private String userTel;
   private String userRole;
   private LocalDateTime joinData;

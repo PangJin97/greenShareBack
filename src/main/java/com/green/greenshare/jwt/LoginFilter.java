@@ -64,12 +64,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
       throw  new RuntimeException(e);
     }
     log.info("전달받은 아이디 : " + dto.getUserEmail());
-    log.info("전달받은 비밀번호 : " + dto.getUserPasswod());
+    log.info("전달받은 비밀번호 : " + dto.getUserPassword());
 
     //우리가 입력한 아이디와 비밀번호를 데이터베이스에 저장한 정보와 일치하는지 검증하는 로직은
     //AuthenticationManager가 담당하기 때문에 전달받은 아이디와 비밀번호를 AuthenticationManager에 전달해줘야 한다.
     //이때 아이디와 비밀번호를 그냥 전달하는 것이 아니라 UsernamePasswordAuthenticationToken 객체에 실어 보낸다.
-    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(dto.getUserEmail(), dto.getUserPasswod(), null);
+    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(dto.getUserEmail(), dto.getUserPassword(), null);
 
     //아이디와 비번을 담고 있는 authToken객체를 authenticationManager에 전달, authenticationManager는 로그인을 검증하는 기능을 함
     //로그인을 검증하는 방법 -> UserDetailsService의 loadUserByUsername 메서드를 호출하여 검증

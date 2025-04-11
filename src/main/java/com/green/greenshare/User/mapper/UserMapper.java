@@ -8,4 +8,6 @@ public interface UserMapper {
 
   public int insertUserList(UserDTO userDTO);
 
+  public UserDTO getUserForLogin (String userEmail);
+
 }

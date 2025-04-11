@@ -15,4 +15,9 @@ public class UserServiceImpl implements  UserService{
   public int insertUserList(UserDTO userDTO) {
    return userMapper.insertUserList(userDTO);
   }
+
+  @Override
+  public UserDTO getUserForLogin(String userEmail) {
+    return userMapper.getUserForLogin(userEmail);
+  }
 }

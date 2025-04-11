@@ -5,4 +5,6 @@ import com.green.greenshare.User.dto.UserDTO;
 public interface UserService {
 
   public int insertUserList(UserDTO userDTO);
+
+  public UserDTO getUserForLogin (String userEmail);
 }

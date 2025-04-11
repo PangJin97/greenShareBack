@@ -30,8 +30,6 @@ public class UserController {
 
 
 
-
-
   //회원가입
   @PostMapping("/join")
   public  ResponseEntity<?> join(@RequestBody UserDTO userDTO){

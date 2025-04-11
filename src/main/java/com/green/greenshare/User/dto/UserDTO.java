@@ -1,21 +1,20 @@
-package com.green.greenshare.User.dto;
+package com.green.greenshare.user.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-@Setter
-@Getter
-@ToString
+@Data
 public class UserDTO {
-  private String userEmail;
-  private String userPassword;
-  private String userTel;
-  private String userRole;
-  private LocalDateTime joinData;
-  private String userName;
-
-
+  private int qnaNum;
+  private String status;
+  private String title;
+  private String writer;
+  private String content;
+  private LocalDateTime date;
+  private String searchLog;
+  private String selectWord;
 }

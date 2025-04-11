@@ -7,9 +7,9 @@ public interface ReplyFarmerService {
   public List<ReplyFarmersDTO> replySelect(int boardNum);
 
   //댓글 등록
-  public void insertReply(ReplyFarmersDTO replyFarmersDTO);
+  public int insertReply(ReplyFarmersDTO replyFarmersDTO);
 
   //댓글 삭제
-  public void deleteReply(int replyNum);
+  public int deleteReply(int replyNum);
 
 }

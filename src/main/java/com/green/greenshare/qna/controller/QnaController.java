@@ -1,20 +1,25 @@
 package com.green.greenshare.qna.controller;
 
+import com.green.greenshare.qna.dto.QnaDTO;
+import com.green.greenshare.qna.service.QnaService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/qna")
 public class QnaController {
-  private  final UserService userService;
+  private  final QnaService qnaService;
 
   //QNA 목록 조회
   @GetMapping("")
-  public ResponseEntity<?> qnaList(UserDTO userDTO) {
+  public ResponseEntity<?> qnaList(QnaDTO qnaDTO) {
     try {
-      List<UserDTO> qnaList = userService.qnaList(userDTO);
+      List<QnaDTO> qnaList = qnaService.qnaList(qnaDTO);
 
       return ResponseEntity.status(HttpStatus.OK).body(qnaList);
 
@@ -29,10 +34,10 @@ public class QnaController {
 
   //QNA 상세보기
   @GetMapping("/{qnaNum}")
-  public ResponseEntity<?>  selectQna(@PathVariable("qnaNum")int qnaNum){
+  public ResponseEntity<?>  selectQna(@PathVariable("qnaNum") int qnaNum){
     try {
 
-      UserDTO selectQna = userService.selectQna(qnaNum);
+      QnaDTO selectQna = qnaService.selectQna(qnaNum);
 
       return ResponseEntity.status(HttpStatus.OK).body(selectQna);
 
@@ -46,9 +51,9 @@ public class QnaController {
 
   //QNA 등록
   @PostMapping("")
-  public ResponseEntity<?> insertQna(@RequestBody UserDTO userDTO){
+  public ResponseEntity<?> insertQna(@RequestBody QnaDTO qnaDTO){
     try {
-      int insertQna = userService.insertQna(userDTO);
+      int insertQna = qnaService.insertQna(qnaDTO);
 
       return ResponseEntity.status(HttpStatus.OK).body(insertQna);
     }
@@ -60,10 +65,10 @@ public class QnaController {
 
   //QNA 수정
   @PutMapping("/{qnaNum}")
-  public ResponseEntity<?>  updateQna(@PathVariable("qnaNum") int qnaNum,@RequestBody UserDTO userDTO){
+  public ResponseEntity<?>  updateQna(@PathVariable("qnaNum") int qnaNum,@RequestBody QnaDTO qnaDTO){
     try {
-      userDTO.setQnaNum(qnaNum);
-      int updateQna = userService.updateQna(userDTO);
+      qnaDTO.setQnaNum(qnaNum);
+      int updateQna = qnaService.updateQna(qnaDTO);
       return ResponseEntity.status(HttpStatus.OK).body(updateQna);
     }catch (Exception e){
       e.printStackTrace();
@@ -73,9 +78,9 @@ public class QnaController {
 
   //QNA 질문 삭제
   @DeleteMapping("/{qnaNum}")
-  public  ResponseEntity<?>   deleteQna(@PathVariable("qnaNum") int qnaNum){
+  public  ResponseEntity<?>  deleteQna(@PathVariable("qnaNum") int qnaNum){
     try {
-      int deleteQna = userService.deleteQna(qnaNum);
+      int deleteQna = qnaService.deleteQna(qnaNum);
       return ResponseEntity.status(HttpStatus.OK).body(deleteQna);
     }catch (Exception e){
       e.printStackTrace();

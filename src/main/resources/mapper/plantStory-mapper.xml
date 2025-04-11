@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.greenshare.plantStory.mapper.PlantStoryMapper">
+
+    <resultMap id="plantStory" type="PlantStoryDTO">
+        <id column="BOARD_NUM" property="boardNum" />
+        <result column="TITLE" property="title" />
+        <result column="CONTENT" property="content" />
+        <result column="READ_CNT" property="readCnt" />
+        <result column="REG_DATE" property="regDate" />
+        <result column="USER_EMAIL" property="userEmail" />
+    </resultMap>
+
+    <!--식물 이야기 게시물 등록-->
+    <insert id="insertPlantStory">
+        INSERT INTO PLANT_STORY (
+            TITLE
+            ,CONTENT
+            ,USER_EMAIL
+        )VALUES(
+            #{title}
+            ,#{content}
+            ,#{userEmail}
+        );
+    </insert>
+
+    <!--식물 이야기 게시글 최신순으로 조회-->
+    <select id="getPlantStory" resultMap="plantStory">
+        SELECT USER_EMAIL, TITLE, CONTENT, BOARD_NUM
+        FROM PLANT_STORY
+        ORDER BY REG_DATE DESC;
+    </select>
+
+    <!--식물 이야기 상세 조회-->
+    <select id="detailPlantStory" resultMap="plantStory">
+        SELECT USER_EMAIL, TITLE , REG_DATE, READ_CNT, CONTENT
+        FROM PLANT_STORY
+        WHERE BOARD_NUM = #{boardNum}
+    </select>
+
+    <!--조회수 증가-->
+    <update id="updateCnt">
+        UPDATE PLANT_STORY
+        SET READ_CNT = READ_CNT + 1
+        WHERE BOARD_NUM = #{boardNum};
+    </update>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

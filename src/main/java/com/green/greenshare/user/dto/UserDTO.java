@@ -7,14 +7,16 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
+/**
+ * CreatedBy 최재훈
+ * last-update : 2025.04.11
+ */
 @Data
 public class UserDTO {
-  private int qnaNum;
-  private String status;
-  private String title;
-  private String writer;
-  private String content;
-  private LocalDateTime date;
-  private String searchLog;
-  private String selectWord;
+  private String userEmail;
+  private String userPasswod;
+  private String userTel;
+  private String userRole;
+  private LocalDateTime joinData;
+  private String userName;
 }

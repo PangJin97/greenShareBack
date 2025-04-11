@@ -46,6 +46,29 @@
         WHERE QNA_NUM = #{qnaNum}
     </delete>
 
+
+    <resultMap id="user" type="UserDTO">
+        <id column="USER_EMAIL" property="userEmail"/>
+        <result column="USER_PASSWORD" property="userPassword"/>
+        <result column="USER_NAME" property="userName"/>
+        <result column="USER_ROLE" property="userRole"/>
+        <result column="JOIN_DATA" property="joinData"/>
+    </resultMap>
+
+    <!--로그인하려는 회원 정보 조회-->
+    <select id="getUserForLogin" resultMap="user">
+        SELECT USER_EMAIL
+        , USER_PASSWORD
+        , USER_ROLE
+        , USER_NAME
+        FROM USER
+        WHERE USER_EMAIL = #{userEmail}
+    </select>
+
+
+
+
+
     <insert id="insertUserList">
         INSERT INTO USER(
         USER_EMAIL,

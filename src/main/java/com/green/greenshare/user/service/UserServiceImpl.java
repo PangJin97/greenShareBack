@@ -7,33 +7,24 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * CreatedBy 최재훈
+ * last-update : 2025.04.11
+ */
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
   private final UserMapper userMapper;
 
+  //회원가입
   @Override
-  public List<UserDTO> qnaList(UserDTO userDTO) {
-    return userMapper.qnaList(userDTO);
+  public void insertUserList(UserDTO userDTO) {
+    userMapper.insertUserList(userDTO);
   }
 
+  //로그인하려는 회원의 정보조회
   @Override
-  public UserDTO selectQna(int qnaNum) {
-    return userMapper.selectQna(qnaNum);
-  }
-
-  @Override
-  public int insertQna(UserDTO userDTO) {
-    return userMapper.insertQna(userDTO);
-  }
-
-  @Override
-  public int updateQna(UserDTO userDTO) {
-    return userMapper.updateQna(userDTO);
-  }
-
-  @Override
-  public int deleteQna(int qnaNum) {
-    return userMapper.deleteQna(qnaNum);
+  public UserDTO getUserForLogin(String userEmail) {
+    return userMapper.getUserForLogin(userEmail);
   }
 }

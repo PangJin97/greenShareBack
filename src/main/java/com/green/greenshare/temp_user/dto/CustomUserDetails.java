@@ -1,4 +1,4 @@
-package com.green.greenshare.User.dto;
+package com.green.greenshare.user.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +42,7 @@ public class CustomUserDetails implements UserDetails {
 
   @Override
   public String getPassword() {
-    return userDTO.getUserPassword();
+    return userDTO.getUserPasswod();
   }
 
   @Override

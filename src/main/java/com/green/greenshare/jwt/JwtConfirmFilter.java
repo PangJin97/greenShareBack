@@ -1,8 +1,8 @@
 package com.green.greenshare.jwt;
 
 
-import com.green.greenshare.User.dto.CustomUserDetails;
-import com.green.greenshare.User.dto.UserDTO;
+import com.green.greenshare.user.dto.CustomUserDetails;
+import com.green.greenshare.user.dto.UserDTO;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -60,7 +60,7 @@ public class JwtConfirmFilter extends OncePerRequestFilter {
     //userEntity를 생성하여 값 set
     UserDTO user = new UserDTO();
     user.setUserEmail(username);
-    user.setUserPassword(role);
+    user.setUserPasswod(role);
 
     //UserDetails에 회원 정보 객체 담기
     CustomUserDetails customUserDetails = new CustomUserDetails(user);

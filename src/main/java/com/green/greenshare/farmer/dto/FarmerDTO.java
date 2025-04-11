@@ -1,5 +1,6 @@
 package com.green.greenshare.farmer.dto;
 
+import com.green.greenshare.farmer.ReplyFarmersDTO;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -10,6 +11,9 @@ public class FarmerDTO {
   private String title;
   private String writer;
   private String content;
-  private  int views;
+  private int views;
   private LocalDateTime date;
+  private String selectWord;
+  private String searchLog;
+  private ReplyFarmersDTO replyFarmersDTO;
 }

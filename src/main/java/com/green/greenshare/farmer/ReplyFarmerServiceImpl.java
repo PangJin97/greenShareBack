@@ -16,12 +16,12 @@ public class ReplyFarmerServiceImpl implements ReplyFarmerService {
   }
 
   @Override
-  public void insertReply(ReplyFarmersDTO replyFarmersDTO) {
-     replyFarmerMapper.insertReply(replyFarmersDTO);
+  public int insertReply(ReplyFarmersDTO replyFarmersDTO) {
+     return replyFarmerMapper.insertReply(replyFarmersDTO);
   }
 
   @Override
-  public void deleteReply(int replyNum) {
-    replyFarmerMapper.deleteReply(replyNum);
+  public int deleteReply(int replyNum) {
+   return replyFarmerMapper.deleteReply(replyNum);
   }
 }

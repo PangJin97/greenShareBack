@@ -1,7 +1,7 @@
-package com.green.greenshare.User.service;
+package com.green.greenshare.user.service;
 
-import com.green.greenshare.User.dto.CustomUserDetails;
-import com.green.greenshare.User.dto.UserDTO;
+import com.green.greenshare.user.dto.CustomUserDetails;
+import com.green.greenshare.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;

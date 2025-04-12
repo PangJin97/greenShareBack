@@ -46,7 +46,6 @@ public class PlantStoryController {
   /*식물 이야기 상세 조회*/
   @GetMapping("/{boardNum}")
   public ResponseEntity<?> detailPlantStory(@PathVariable("boardNum") int boardNum){
-
     try {
       PlantStoryDTO detailStory = plantStoryService.detailPlantStory(boardNum);
       return ResponseEntity.status(HttpStatus.OK)
@@ -57,4 +56,34 @@ public class PlantStoryController {
               .body("상세 조회 중 서버 오류 발생");
     }
   }
+
+  /*식물 이야기 삭제*/
+  @DeleteMapping("/{boardNum}")
+  public ResponseEntity<?> deletePlantStory(@PathVariable("boardNum") int boardNum){
+    try {
+      int deleteStory = plantStoryService.deletePlantStory(boardNum);
+      return ResponseEntity.status(HttpStatus.OK)
+              .body(deleteStory);
+    }catch(Exception e){
+      e.printStackTrace();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("게시글 삭제중 서버 오류 발생");
+    }
+  }
+
+  /*식물이야기 수정*/
+  @PutMapping("/{boardNum}")
+  public ResponseEntity<?>updatePlantStory(@PathVariable("boardNum") int boardNum, @RequestBody PlantStoryDTO plantStoryDTO){
+    try {
+      plantStoryDTO.setBoardNum(boardNum);
+      int updateStory = plantStoryService.updatePlantStory(plantStoryDTO);
+      return ResponseEntity.status(HttpStatus.OK)
+              .body(updateStory);
+    }catch(Exception e){
+      e.printStackTrace();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("이야기 수정 중 서버오류 발생");
+    }
+  }
+
 }

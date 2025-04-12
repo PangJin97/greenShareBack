@@ -19,4 +19,10 @@ public interface PlantStoryMapper {
 
   /*식물 이야기 상세 조회에서 조회수 증가*/
   public void updateCnt(int boardNum);
+
+  /*식물 이야기 삭제*/
+  public int deletePlantStory(int boardNum);
+
+  /*식물 이야기 수정*/
+  public int updatePlantStory(PlantStoryDTO plantStoryDTO);
 }

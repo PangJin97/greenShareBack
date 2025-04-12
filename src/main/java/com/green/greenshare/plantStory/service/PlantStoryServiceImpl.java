@@ -34,4 +34,16 @@ public class PlantStoryServiceImpl implements PlantStoryService{
 
     return plantStoryMapper.detailPlantStory(boardNum);
   }
+
+  /*식물 이야기 삭제*/
+  @Override
+  public int deletePlantStory(int boardNum) {
+    return plantStoryMapper.deletePlantStory(boardNum);
+  }
+
+  /*식물 이야기 수정*/
+  @Override
+  public int updatePlantStory(PlantStoryDTO plantStoryDTO) {
+    return plantStoryMapper.updatePlantStory(plantStoryDTO);
+  }
 }

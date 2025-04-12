@@ -14,4 +14,10 @@ public interface PlantStoryService {
 
   /*식물 이야기 상세조회*/
   public PlantStoryDTO detailPlantStory(int boardNum);
+
+  /*식물 이야기 삭제*/
+  public int deletePlantStory(int boardNum);
+
+  /*식물 이야기 수정*/
+  public int updatePlantStory(PlantStoryDTO plantStoryDTO);
 }

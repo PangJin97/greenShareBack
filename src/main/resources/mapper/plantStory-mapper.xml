@@ -48,6 +48,20 @@
         WHERE BOARD_NUM = #{boardNum};
     </update>
 
+    <!--식물 이야기 삭제-->
+    <delete id="deletePlantStory">
+        DELETE FROM PLANT_STORY
+        WHERE BOARD_NUM = #{boardNum}
+    </delete>
+
+    <!--식물 이야기 수정-->
+    <update id="updatePlantStory">
+        UPDATE PLANT_STORY
+        SET TITLE = #{title}
+            ,CONTENT = #{content}
+        WHERE BOARD_NUM = #{boardNum}
+    </update>
+
 
 </mapper>
 

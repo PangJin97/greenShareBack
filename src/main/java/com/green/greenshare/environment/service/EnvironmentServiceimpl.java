@@ -27,4 +27,103 @@ public class EnvironmentServiceimpl implements EnvironmentService {
   public EnvironmentDTO latestData() {
     return environmentMapper.latestData();
   }
+
+  @Override
+  public List<EnvironmentDTO> selectTemperatureByInterval(String interval) {
+    int intervalValue;
+    String groupFormat;
+
+    switch (interval) {
+      case "1h":
+        intervalValue = 1;
+        groupFormat = "%Y-%m-%d %H:%i"; // 분 단위
+        break;
+      case "6h":
+        intervalValue = 6;
+        groupFormat = "%Y-%m-%d %H";   // 시간 단위
+        break;
+      case "12h":
+        intervalValue = 12;
+        groupFormat = "%Y-%m-%d %H";   // 시간 단위
+        break;
+      default:
+        throw new IllegalArgumentException("Invalid interval: " + interval);
+    }
+
+    return environmentMapper.selectTemperatureByInterval(intervalValue, groupFormat);
+
+  }
+
+  @Override
+  public List<EnvironmentDTO> selectIlluminanceByInterval(String interval) {
+    int intervalValue;
+    String groupFormat;
+
+    switch (interval) {
+      case "1h":
+        intervalValue = 1;
+        groupFormat = "%Y-%m-%d %H:%i"; // 분 단위
+        break;
+      case "6h":
+        intervalValue = 6;
+        groupFormat = "%Y-%m-%d %H";   // 시간 단위
+        break;
+      case "12h":
+        intervalValue = 12;
+        groupFormat = "%Y-%m-%d %H";   // 시간 단위
+        break;
+      default:
+        throw new IllegalArgumentException("Invalid interval: " + interval);
+    }
+    return environmentMapper.selectIlluminanceByInterval(intervalValue, groupFormat);
+  }
+
+  @Override
+  public List<EnvironmentDTO> selectSoilByInterval(String interval) {
+    int intervalValue;
+    String groupFormat;
+
+    switch (interval) {
+      case "1h":
+        intervalValue = 1;
+        groupFormat = "%Y-%m-%d %H:%i"; // 분 단위
+        break;
+      case "6h":
+        intervalValue = 6;
+        groupFormat = "%Y-%m-%d %H";   // 시간 단위
+        break;
+      case "12h":
+        intervalValue = 12;
+        groupFormat = "%Y-%m-%d %H";   // 시간 단위
+        break;
+      default:
+        throw new IllegalArgumentException("Invalid interval: " + interval);
+    }
+    return environmentMapper.selectSoilByInterval(intervalValue, groupFormat);
+  }
+
+  @Override
+  public List<EnvironmentDTO> selectHumidityByInterval(String interval) {
+    int intervalValue;
+    String groupFormat;
+
+    switch (interval) {
+      case "1h":
+        intervalValue = 1;
+        groupFormat = "%Y-%m-%d %H:%i"; // 분 단위
+        break;
+      case "6h":
+        intervalValue = 6;
+        groupFormat = "%Y-%m-%d %H";   // 시간 단위
+        break;
+      case "12h":
+        intervalValue = 12;
+        groupFormat = "%Y-%m-%d %H";   // 시간 단위
+        break;
+      default:
+        throw new IllegalArgumentException("Invalid interval: " + interval);
+    }
+    return environmentMapper.selectHumidityByInterval(intervalValue, groupFormat);
+  }
 }
+

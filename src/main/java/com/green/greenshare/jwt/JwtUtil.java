@@ -65,7 +65,7 @@ public class JwtUtil {
             .and()
               .subject(username)      //유저이름
               .claim("role", role)    //권한
-              .claim("userName", userName)    //권한
+              .claim("userName", userName)    //이름
             .issuedAt(new Date(System.currentTimeMillis()))                      //토큰 발행 시간
             .expiration(new Date(System.currentTimeMillis() + expirationTime))   //토큰 만료 시간
             .compact();

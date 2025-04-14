@@ -23,10 +23,11 @@ public class UserController {
 
   // 로그인하려는 회원의 정보 조회
   @PostMapping("/login")
-  public ResponseEntity<?> getUserForLogin(@RequestParam String userEmail) {
-    UserDTO user = userService.getUserForLogin(userEmail);
+  public ResponseEntity<?> getUserForLogin(@RequestBody UserDTO userDTO) {
+    UserDTO user = userService.getUserForLogin(userDTO.getUserEmail());
     return ResponseEntity.ok(user);
   }
+
 
 
 

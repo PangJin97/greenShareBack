@@ -17,7 +17,7 @@ public class QnaController {
 
   //QNA 목록 조회
   @GetMapping("")
-  public ResponseEntity<?> qnaList(QnaDTO qnaDTO) {
+  public ResponseEntity<?> qnaList(@RequestParam(required = false)QnaDTO qnaDTO) {
     try {
       List<QnaDTO> qnaList = qnaService.qnaList(qnaDTO);
 

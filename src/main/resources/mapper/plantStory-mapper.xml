@@ -12,6 +12,7 @@
         <result column="READ_CNT" property="readCnt" />
         <result column="REG_DATE" property="regDate" />
         <result column="USER_EMAIL" property="userEmail" />
+        <result column="IS_LIKE" property="isLike" />
     </resultMap>
 
     <!--식물 이야기 게시물 등록-->
@@ -28,11 +29,36 @@
     </insert>
 
     <!--식물 이야기 게시글 최신순으로 조회-->
+    <!-- 식물 이야기 게시글 최신순으로 조회 -->
     <select id="getPlantStory" resultMap="plantStory">
-        SELECT USER_EMAIL, TITLE, CONTENT, BOARD_NUM
-        FROM PLANT_STORY
-        ORDER BY REG_DATE DESC;
+        SELECT
+            BOARD_NUM,
+            USER_EMAIL,
+            TITLE,
+            CONTENT,
+        IFNULL((
+            SELECT 'Y'
+            FROM LIKE_PLANT
+            WHERE USER_EMAIL = IFNULL(#{userEmail}, '')
+        AND BOARD_NUM = PS.BOARD_NUM
+        ), 'N') AS IS_LIKE,
+
+        (
+            SELECT COUNT(LIKE_NUM)
+            FROM LIKE_PLANT
+            WHERE BOARD_NUM = PS.BOARD_NUM
+        ) AS LIKE_CNT,
+        (
+        SELECT COUNT(COMMENT_ID)
+        FROM PLANT_REPLY
+        WHERE BOARD_NUM = PS.BOARD_NUM
+        ) AS REPLY_CNT
+           <!-- 댓글 수 추가 -->
+
+        FROM plant_story PS
+        ORDER BY REG_DATE DESC
     </select>
+
 
     <!--식물 이야기 상세 조회-->
     <select id="detailPlantStory" resultMap="plantStory">
@@ -62,6 +88,23 @@
         WHERE BOARD_NUM = #{boardNum}
     </update>
 
+    <!--좋아요 선택-->
+    <insert id="insertLike">
+        INSERT INTO LIKE_PLANT (
+            BOARD_NUM
+            , USER_EMAIL
+        ) VALUES (
+            #{boardNum}
+            ,#{userEmail}
+        )
+    </insert>
+
+    <!--좋아요 해제-->
+    <delete id="deleteLike">
+        DELETE FROM LIKE_PLANT
+        WHERE BOARD_NUM = #{boardNum}
+        AND USER_EMAIL = #{userEmail}
+    </delete>
 
 </mapper>
 

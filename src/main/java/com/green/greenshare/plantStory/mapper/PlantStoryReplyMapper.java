@@ -13,9 +13,14 @@ public interface PlantStoryReplyMapper {
   public int insertReply(PlantStoryReplyDTO plantStoryReplyDTO);
 
   /*게시글 당 댓글 조회*/
-  public List<PlantStoryReplyDTO>getReplies(int boardNum);
+  public List<PlantStoryReplyDTO> getReplies(int boardNum);
 
   /*댓글 삭제*/
   public int deleteReply(int commentId);
 
+  /*댓글 수정*/
+  public int updateReply(PlantStoryReplyDTO plantStoryReplyDTO);
+
+  /*댓글 작성자 이메일 조회 (권한 체크용)*/
+  public String getReplyWriter(int commentId);
 }

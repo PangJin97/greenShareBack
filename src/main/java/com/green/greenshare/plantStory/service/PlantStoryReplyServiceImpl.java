@@ -24,9 +24,21 @@ public class PlantStoryReplyServiceImpl implements PlantStoryReplyService {
     return plantStoryReplyMapper.getReplies(boardNum);
   }
 
- /*댓글 삭제*/
+  /*댓글 삭제*/
   @Override
   public int deleteReply(int commentId) {
     return plantStoryReplyMapper.deleteReply(commentId);
+  }
+
+  /*댓글 수정*/
+  @Override
+  public int updateReply(PlantStoryReplyDTO plantStoryReplyDTO) {
+    return plantStoryReplyMapper.updateReply(plantStoryReplyDTO);
+  }
+
+  /*댓글 작성자 이메일 조회 (권한 체크용)*/
+  @Override
+  public String getReplyWriter(int commentId) {
+    return plantStoryReplyMapper.getReplyWriter(commentId);
   }
 }

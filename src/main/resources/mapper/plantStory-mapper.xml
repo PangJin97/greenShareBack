@@ -14,53 +14,45 @@
         <result column="USER_EMAIL" property="userEmail" />
     </resultMap>
 
-    <!--식물 이야기 게시물 등록-->
     <insert id="insertPlantStory">
-        INSERT INTO PLANT_STORY (
-            TITLE
-            ,CONTENT
-            ,USER_EMAIL
-        )VALUES(
-            #{title}
-            ,#{content}
-            ,#{userEmail}
-        );
+        INSERT INTO PLANT_STORY (TITLE, CONTENT, USER_EMAIL)
+        VALUES (#{title}, #{content}, #{userEmail});
     </insert>
 
-    <!--식물 이야기 게시글 최신순으로 조회-->
     <select id="getPlantStory" resultMap="plantStory">
         SELECT USER_EMAIL, TITLE, CONTENT, BOARD_NUM
         FROM PLANT_STORY
         ORDER BY REG_DATE DESC;
     </select>
 
-    <!--식물 이야기 상세 조회-->
     <select id="detailPlantStory" resultMap="plantStory">
-        SELECT USER_EMAIL, TITLE , REG_DATE, READ_CNT, CONTENT
+        SELECT USER_EMAIL, TITLE, REG_DATE, READ_CNT, CONTENT
         FROM PLANT_STORY
         WHERE BOARD_NUM = #{boardNum}
     </select>
 
-    <!--조회수 증가-->
     <update id="updateCnt">
         UPDATE PLANT_STORY
         SET READ_CNT = READ_CNT + 1
         WHERE BOARD_NUM = #{boardNum};
     </update>
 
-    <!--식물 이야기 삭제-->
     <delete id="deletePlantStory">
         DELETE FROM PLANT_STORY
         WHERE BOARD_NUM = #{boardNum}
     </delete>
 
-    <!--식물 이야기 수정-->
     <update id="updatePlantStory">
         UPDATE PLANT_STORY
-        SET TITLE = #{title}
-            ,CONTENT = #{content}
+        SET TITLE = #{title}, CONTENT = #{content}
         WHERE BOARD_NUM = #{boardNum}
     </update>
+
+    <!-- ✅ 작성자 이메일 조회 -->
+    <select id="getWriterEmail" resultType="String">
+        SELECT USER_EMAIL FROM PLANT_STORY
+        WHERE BOARD_NUM = #{boardNum}
+    </select>
 
 
 </mapper>

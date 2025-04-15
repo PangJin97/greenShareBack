@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-public class UserController {
+public class  UserController {
   private final UserService userService;
   private final PasswordEncoder passwordEncoder;
 

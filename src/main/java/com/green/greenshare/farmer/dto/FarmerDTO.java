@@ -9,11 +9,12 @@ import java.time.LocalDateTime;
 public class FarmerDTO {
   private int boardNum;
   private String title;
-  private String writer;
+  private String UserEmail;
   private String content;
   private int views;
   private LocalDateTime date;
   private String selectWord;
   private String searchLog;
   private ReplyFarmersDTO replyFarmersDTO;
+  private boolean latest;
 }

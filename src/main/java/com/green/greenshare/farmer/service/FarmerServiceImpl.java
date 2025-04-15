@@ -18,6 +18,12 @@ public class FarmerServiceImpl implements FarmerService{
     return farmerMapper.farmerList(farmerDTO);
   }
 
+  //5개까지 조회
+  @Override
+  public List<FarmerDTO> mainFarmers() {
+    return farmerMapper.mainFarmers();
+  }
+
   //상세조회
   @Override
   public FarmerDTO selectFarmer(int boardNum) {
@@ -45,6 +51,11 @@ public class FarmerServiceImpl implements FarmerService{
     return farmerMapper.deleteFarmers(boardNum);
   }
 
+  // 작성자 이메일 조회 (권한 체크용)
+  @Override
+  public String selectWriterEmail(int boardNum) {
+    return farmerMapper.selectWriterEmail(boardNum);
+  }
 
 
 }

@@ -1,7 +1,7 @@
 package com.green.greenshare.follow.controller;
 
 
-import com.green.greenshare.follow.Service.FollowService;
+import com.green.greenshare.follow.service.FollowService;
 import com.green.greenshare.follow.dto.FollowDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

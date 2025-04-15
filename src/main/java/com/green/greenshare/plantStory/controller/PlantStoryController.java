@@ -1,6 +1,7 @@
 package com.green.greenshare.plantStory.controller;
 
 import com.green.greenshare.jwt.JwtUtil;
+import com.green.greenshare.plantStory.dto.LikeDTO;
 import com.green.greenshare.plantStory.dto.PlantStoryDTO;
 import com.green.greenshare.plantStory.service.PlantStoryService;
 import lombok.RequiredArgsConstructor;
@@ -38,11 +39,18 @@ public class PlantStoryController {
 
   /*식물이야기 조회하기*/
   @GetMapping("")
-  public ResponseEntity<?> getPlantStory() {
+  public ResponseEntity<?> getPlantStory(@RequestHeader(name = "Authorization", required = false) String token){
     try {
-      List<PlantStoryDTO> getStory = plantStoryService.getPlantStory();
+      //토큰이 null이 아닐때만 로그인 유저 정보 세팅
+      String userEmail = null;
+      if(token != null && !jwtUtil.isExpired(token.split(" ")[1])){
+
+        String loginUserEmail = jwtUtil.getUsername(token.split(" ")[1]);
+        userEmail = loginUserEmail;
+      }
+      List<PlantStoryDTO> getStory = plantStoryService.getPlantStory(userEmail);
       return ResponseEntity.status(HttpStatus.OK).body(getStory);
-    } catch (Exception e) {
+    }catch(Exception e){
       e.printStackTrace();
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
               .body("식물 이야기 조회 중 서버 오류 발생");
@@ -113,4 +121,44 @@ public class PlantStoryController {
               .body("이야기 수정 중 서버 오류 발생");
     }
   }
+
+  //좋아요 선택
+  @PostMapping("/like-insert")
+  public ResponseEntity<?> insertLike(
+          @RequestBody LikeDTO likeDTO, //이 곳에서 boardNum 가져옴
+          @RequestHeader("Authorization") String token //로그인한 회원의 토큰
+  ){
+
+    //토큰에서 회원 아이디만 추출 후 DTO에 저장
+    String loginUserEmail = jwtUtil.getUsername(token.split(" ")[1]);
+    likeDTO.setUserEmail(loginUserEmail);
+
+    //LIKE 정보 INSERT 쿼리 실행
+    plantStoryService.insertLike(likeDTO);
+    return ResponseEntity.status(HttpStatus.CREATED).build();
+
+  }
+
+  //좋아요 해제
+  @DeleteMapping("/like-delete/{boardNum}")
+  public ResponseEntity<?> deleteLike(
+          @PathVariable("boardNum") int boardNum,
+          @RequestHeader("Authorization") String token //로그인한 회원의 토큰
+  ){
+    //토큰이 null이 아닐때만 로그인 유저 정보 세팅
+    String userEmail = null;
+    if(token != null && !jwtUtil.isExpired(token.split(" ")[1])){
+
+      String loginUserEmail = jwtUtil.getUsername(token.split(" ")[1]);
+      userEmail = loginUserEmail;
+    }
+
+    LikeDTO likeDTO = new LikeDTO();
+    likeDTO.setBoardNum(boardNum);
+    likeDTO.setUserEmail(userEmail);
+
+    plantStoryService.deleteLike(likeDTO);
+    return ResponseEntity.status(HttpStatus.CREATED).build();
+  }
+
 }

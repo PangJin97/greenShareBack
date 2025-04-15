@@ -1,5 +1,6 @@
 package com.green.greenshare.plantStory.service;
 
+import com.green.greenshare.plantStory.dto.LikeDTO;
 import com.green.greenshare.plantStory.dto.PlantStoryDTO;
 import com.green.greenshare.plantStory.mapper.PlantStoryMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,8 @@ public class PlantStoryServiceImpl implements PlantStoryService {
   }
 
   @Override
-  public List<PlantStoryDTO> getPlantStory() {
-    return plantStoryMapper.getPlantStory();
+  public List<PlantStoryDTO> getPlantStory(String userEmail) {
+    return plantStoryMapper.getPlantStory(userEmail);
   }
 
   @Override
@@ -37,6 +38,19 @@ public class PlantStoryServiceImpl implements PlantStoryService {
   @Override
   public int updatePlantStory(PlantStoryDTO plantStoryDTO) {
     return plantStoryMapper.updatePlantStory(plantStoryDTO);
+  }
+
+
+  //좋아요 선택
+  @Override
+  public void insertLike(LikeDTO likeDTO) {
+    plantStoryMapper.insertLike(likeDTO);
+  }
+
+  //좋아요 해체
+  @Override
+  public void deleteLike(LikeDTO likeDTO) {
+    plantStoryMapper.deleteLike(likeDTO);
   }
 
   @Override

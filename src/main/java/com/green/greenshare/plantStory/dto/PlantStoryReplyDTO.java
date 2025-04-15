@@ -17,4 +17,5 @@ public class PlantStoryReplyDTO {
   private int boardNum;
   private String userEmail;
   private LocalDateTime regDate;
+
 }

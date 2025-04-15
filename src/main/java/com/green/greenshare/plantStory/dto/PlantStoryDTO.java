@@ -17,4 +17,8 @@ public class PlantStoryDTO {
   private int readCnt;
   private LocalDateTime regDate;
   private String userEmail;
+  private String isLike;
+  private int likeCnt;
+  private int replyCnt;
+
 }

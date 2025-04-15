@@ -2,6 +2,7 @@ package com.green.greenshare.environment.mapper;
 
 import com.green.greenshare.environment.dto.EnvironmentDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,4 +16,25 @@ public interface EnvironmentMapper {
   EnvironmentDTO latestData();
 
   List<EnvironmentDTO> latestData12();
+
+  List<EnvironmentDTO> selectTemperatureByInterval(
+      @Param("intervalValue") int intervalValue,
+      @Param("groupFormat") String groupFormat
+  );
+
+  List<EnvironmentDTO> selectIlluminanceByInterval(
+      @Param("intervalValue") int intervalValue,
+      @Param("groupFormat") String groupFormat
+  );
+
+  List<EnvironmentDTO> selectSoilByInterval(
+      @Param("intervalValue") int intervalValue,
+      @Param("groupFormat") String groupFormat
+  );
+  List<EnvironmentDTO> selectHumidityByInterval(
+      @Param("intervalValue") int intervalValue,
+      @Param("groupFormat") String groupFormat
+  );
+
+
 }

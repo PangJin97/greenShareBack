@@ -5,7 +5,6 @@
 <!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
 <mapper namespace="com.green.greenshare.plantStory.mapper.PlantStoryReplyMapper">
 
-    <!--포링키가 있더라도 평소처럼 작성하면 됨-->
     <resultMap id="plantReply" type="PlantStoryReplyDTO">
         <id column="COMMENT_ID" property="commentId" />
         <result column="CONTENT" property="content" />
@@ -14,20 +13,20 @@
         <result column="REG_DATE" property="regDate" />
     </resultMap>
 
-    <!--댓글 등록-->
+    <!-- 댓글 등록 -->
     <insert id="insertReply">
-        INSERT INTO PLANT_REPLY(
-            USER_EMAIL
-            ,CONTENT
-            ,BOARD_NUM
-        )VALUES(
-            #{userEmail}
-            ,#{content}
-            ,#{boardNum}
+        INSERT INTO PLANT_REPLY (
+        USER_EMAIL,
+        CONTENT,
+        BOARD_NUM
+        ) VALUES (
+        #{userEmail},
+        #{content},
+        #{boardNum}
         );
     </insert>
 
-    <!--댓글 목록 최신 순으로 조회-->
+    <!-- 댓글 목록 최신순 조회 -->
     <select id="getReplies" resultMap="plantReply">
         SELECT
         COMMENT_ID,
@@ -40,18 +39,25 @@
         ORDER BY REG_DATE ASC
     </select>
 
-    <!--댓글 삭제-->
+    <!-- 댓글 삭제 -->
     <delete id="deleteReply">
         DELETE FROM PLANT_REPLY
         WHERE COMMENT_ID = #{commentId}
     </delete>
 
+    <!-- 댓글 수정 -->
+    <update id="updateReply">
+        UPDATE PLANT_REPLY
+        SET CONTENT = #{content}
+        WHERE COMMENT_ID = #{commentId}
+    </update>
 
-
-
-
-
-
+    <!-- ✅ 댓글 작성자 이메일 조회 (권한 체크용) -->
+    <select id="getReplyWriter" resultType="String">
+        SELECT USER_EMAIL
+        FROM PLANT_REPLY
+        WHERE COMMENT_ID = #{commentId}
+    </select>
 
 </mapper>
 

@@ -8,23 +8,22 @@ import java.util.List;
 
 @Mapper
 public interface PlantStoryMapper {
-
-  /*식물 이야기 등록하기*/
+  // 식물 이야기 등록
   public int insertPlantStory(PlantStoryDTO plantStoryDTO);
 
   /*식물 이야기 조회하기*/
   public List<PlantStoryDTO> getPlantStory(String userEmail);
 
-  /*식물 이야기 상세조회*/
+  // 상세 조회
   public PlantStoryDTO detailPlantStory(int boardNum);
 
-  /*식물 이야기 상세 조회에서 조회수 증가*/
+  // 조회수 증가
   public void updateCnt(int boardNum);
 
-  /*식물 이야기 삭제*/
+  // 삭제
   public int deletePlantStory(int boardNum);
 
-  /*식물 이야기 수정*/
+  // 수정
   public int updatePlantStory(PlantStoryDTO plantStoryDTO);
 
   //좋아요 선택
@@ -32,4 +31,7 @@ public interface PlantStoryMapper {
 
   //좋아요 해제
   public void deleteLike(LikeDTO likeDTO);
+
+  // 작성자 이메일 조회 (권한 체크용)
+  public String getWriterEmail(int boardNum);
 }

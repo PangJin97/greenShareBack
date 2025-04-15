@@ -13,17 +13,61 @@
     <!-- 온도 조도 가장 최신값 받아오는 쿼리 -->
     <select id="latestData" resultType="environmentDTO">
         SELECT * FROM ENVIRONMENT
-        ORDER BY JOIN_DATE
+        ORDER BY JOIN_DATE desc
         LIMIT 0,1
     </select>
 
-    <!-- 온도 조도 최근 한시간 데이터 받아오기 -->
-    <select id="latestData12" resultType="environmentDTO">
-        SELECT * FROM ENVIRONMENT
-        ORDER BY JOIN_DATE
-        LIMIT 0,12
+
+
+    <!--설정한 시간 간격으로 온도 데이터 받아오기-->
+    <select id="selectTemperatureByInterval" resultType="EnvironmentDTO">
+        SELECT
+        ROUND(AVG(temperature), 2) AS temperature,
+        MIN(env_id) AS envId,
+        DATE_FORMAT(join_date, #{groupFormat}) AS joinDate
+        FROM environment
+        WHERE join_date >= DATE_SUB(NOW(), INTERVAL #{intervalValue} HOUR)
+        GROUP BY DATE_FORMAT(join_date, #{groupFormat})
+        ORDER BY joinDate ASC
     </select>
 
-    
+
+    <!--설정한 시간 간격으로 조도 데이터 받아오-->
+    <select id="selectIlluminanceByInterval" resultType="EnvironmentDTO">
+        SELECT
+        ROUND(AVG(illuminance), 2) AS illuminance,
+        MIN(env_id) AS envId,
+        DATE_FORMAT(join_date, #{groupFormat}) AS joinDate
+        FROM environment
+        WHERE join_date >= DATE_SUB(NOW(), INTERVAL #{intervalValue} HOUR)
+        GROUP BY DATE_FORMAT(join_date, #{groupFormat})
+        ORDER BY joinDate ASC
+    </select>
+
+    <!--설정한 시간 간격으로 토양수분 데이터 받아오는 쿼리-->
+    <select id="selectSoilByInterval" resultType="EnvironmentDTO">
+        SELECT
+        ROUND(AVG(soil_moisture), 2) AS soil_moisture,
+        MIN(env_id) AS envId,
+        DATE_FORMAT(join_date, #{groupFormat}) AS joinDate
+        FROM environment
+        WHERE join_date >= DATE_SUB(NOW(), INTERVAL #{intervalValue} HOUR)
+        GROUP BY DATE_FORMAT(join_date, #{groupFormat})
+        ORDER BY joinDate ASC
+    </select>
+
+    <!--설정한 시간 간격으로 습도 데이터 받아오는 쿼리-->
+    <select id="selectHumidityByInterval" resultType="EnvironmentDTO">
+        SELECT
+        ROUND(AVG(humidity), 2) AS humidity,
+        MIN(env_id) AS envId,
+        DATE_FORMAT(join_date, #{groupFormat}) AS joinDate
+        FROM environment
+        WHERE join_date >= DATE_SUB(NOW(), INTERVAL #{intervalValue} HOUR)
+        GROUP BY DATE_FORMAT(join_date, #{groupFormat})
+        ORDER BY joinDate ASC
+    </select>
+
+
 
 </mapper>

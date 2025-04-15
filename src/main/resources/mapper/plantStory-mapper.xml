@@ -13,6 +13,7 @@
         <result column="REG_DATE" property="regDate" />
         <result column="USER_EMAIL" property="userEmail" />
         <result column="IS_LIKE" property="isLike" />
+        <result column="IS_FOLLOW" property="isFollow" />
     </resultMap>
 
     <insert id="insertPlantStory">
@@ -44,9 +45,12 @@
         SELECT COUNT(COMMENT_ID)
         FROM PLANT_REPLY
         WHERE BOARD_NUM = PS.BOARD_NUM
-        ) AS REPLY_CNT
-           <!-- 댓글 수 추가 -->
-
+        ) AS REPLY_CNT,
+        IFNULL((SELECT 'Y'
+        FROM follow
+        WHERE FROM_USER_EMAIL = #{userEmail}
+        AND TO_USER_EMAIL = PS.USER_EMAIL
+        ), 'N') AS IS_FOLLOW
         FROM plant_story PS
         ORDER BY REG_DATE DESC
     </select>

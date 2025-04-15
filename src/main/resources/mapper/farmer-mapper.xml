@@ -6,7 +6,7 @@
     <resultMap id="board" type="FarmerDTO">
         <id     column="BOARD_NUM"          property="boardNum"/>
         <result column="TITLE"              property="title"/>
-        <result column="WRITER"             property="writer"/>
+        <result column="USER_EMAIL"             property="userEmail"/>
         <result column="VIEWS"              property="views"/>
         <result column="CONTENT"            property="content"/>
         <result column="DATE"               property="date"/>
@@ -15,7 +15,7 @@
         <association property="replyFarmersDTO" javaType="replyFarmersDTO">
             <id column="REPLY_NUM" property="replyNum"/>
             <result column="CONTENT" property="content"/>
-            <result column="WRITER" property="writer"/>
+            <result column="USER_EMAIL" property="userEmail"/>
             <result column="DATE" property="date"/>
             <result column="BOARD_NUM" property="boardNum"/>
         </association>
@@ -25,7 +25,7 @@
         SELECT
         BOARD_NUM,
         TITLE,
-        WRITER,
+        USER_EMAIL,
         VIEWS,
         CONTENT,
         DATE
@@ -33,14 +33,15 @@
         <if test='searchLog != null and !searchLog.equals("")'>
             WHERE ${selectWord} LIKE CONCAT ('%',#{searchLog}, '%')
         </if>
+        ORDER BY BOARD_NUM DESC
     </select>
 
     <!--상세조회-->
-    <select id="selectFarmer" resultType="FarmerDTO">
+    <select id="selectFarmer" resultMap="board">
         SELECT
         Board_NUM,
         TITLE,
-        WRITER,
+        USER_EMAIL,
         CONTENT,
         VIEWS,
         DATE
@@ -52,12 +53,12 @@
     <insert id="insertFarmers">
         INSERT INTO BOARD_FARMERS(
         TITLE,
-        WRITER,
+        USER_EMAIL,
         CONTENT
         )
         VALUES(
         #{title},
-        #{writer},
+        #{userEmail},
         #{content}
     )
     </insert>
@@ -83,4 +84,25 @@
         VIEWS = VIEWS + 1
         WHERE BOARD_NUM = #{board_num}
     </update>
+
+    <!--공지사항 목록 최대가 5개만 조회-->
+    <select id="mainFarmers" resultMap="board">
+        SELECT
+        BOARD_NUM,
+        TITLE,
+        USER_EMAIL,
+        VIEWS,
+        CONTENT,
+        DATE
+        FROM BOARD_FARMERS
+        ORDER BY DATE
+        LIMIT 5
+    </select>
+
+    <!--작성자 이메일 조회-->
+    <select id="selectWriterEmail" resultType="String">
+        SELECT USER_EMAIL FROM board_farmers
+        WHERE BOARD_NUM = #{boardNum}
+    </select>
+
 </mapper>

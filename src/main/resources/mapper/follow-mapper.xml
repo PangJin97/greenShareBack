@@ -32,13 +32,13 @@
         WHERE F.FROM_USER_EMAIL = #{fromUserEmail}
     </select>
 
-<!--  팔로우 등록 쿼리  -->
+    <!--  팔로우 등록 쿼리  -->
     <insert id="insertFollow">
         INSERT INTO FOLLOW (FROM_USER_EMAIL, TO_USER_EMAIL)
         VALUES (#{fromUserEmail}, #{toUserEmail})
     </insert>
 
-<!-- 팔로우 취소 쿼리   -->
+    <!-- 팔로우 취소 쿼리   -->
     <delete id="unfollow">
         DELETE FROM FOLLOW
         WHERE FROM_USER_EMAIL = #{fromUserEmail}

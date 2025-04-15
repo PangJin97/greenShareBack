@@ -8,6 +8,14 @@
         <if test='searchLog != null and !searchLog.equals("")'>
             WHERE ${selectWord} LIKE CONCAT ('%',#{searchLog}, '%')
         </if>
+        ORDER BY QNA_NUM DESC
+    </select>
+
+    <!--QNA 목록 최대가 5개만 조회-->
+    <select id="mainQna" resultType="QnaDTO">
+        SELECT * FROM QNA_BOARD
+        ORDER BY DATE
+        LIMIT 5;
     </select>
 
     <!--QNA 상세보기-->
@@ -15,6 +23,7 @@
         SELECT * FROM QNA_BOARD
         WHERE QNA_NUM = #{qnaNum}
     </select>
+
 
     <!--QNA 등록-->
     <insert id="insertQna">
@@ -45,6 +54,8 @@
         DELETE FROM QNA_BOARD
         WHERE QNA_NUM = #{qnaNum}
     </delete>
+
+
 
 </mapper>
 

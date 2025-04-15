@@ -1,4 +1,4 @@
-package com.green.greenshare.follow.Service;
+package com.green.greenshare.follow.service;
 
 import com.green.greenshare.follow.dto.FollowDTO;
 import com.green.greenshare.follow.mapper.FollowMapper;

@@ -10,6 +10,9 @@ public interface FarmerMapper {
   //조회
   public List<FarmerDTO> farmerList(FarmerDTO farmerDTO);
 
+  //최대가 5개만 조회
+  public List<FarmerDTO> mainFarmers();
+
   //상세 정보 조회
   public FarmerDTO selectFarmer(int boardNum);
 
@@ -24,4 +27,7 @@ public interface FarmerMapper {
 
   //조회수 증가
   public  int updateViews(int boardNum);
+
+  // 작성자 이메일 조회 (권한 체크용)
+  public String selectWriterEmail(int boardNum);
 }

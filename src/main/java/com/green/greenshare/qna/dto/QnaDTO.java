@@ -14,5 +14,5 @@ public class QnaDTO {
   private LocalDateTime date;
   private String searchLog;
   private String selectWord;
-
+  private boolean qnaTest;
 }

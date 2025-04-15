@@ -1,5 +1,6 @@
 package com.green.greenshare.qna.controller;
 
+import com.green.greenshare.farmer.dto.FarmerDTO;
 import com.green.greenshare.qna.dto.QnaDTO;
 import com.green.greenshare.qna.service.QnaService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,20 @@ public class QnaController {
               .body("목록 조회 중 서버 오류 발생");
     }
   }
+
+  //최대가 5개만 조회
+  @GetMapping("/qnaTest")
+  public ResponseEntity<?> mainQna() {
+    try {
+      List<QnaDTO> mainFarmers = qnaService.mainQna();
+      return ResponseEntity.status(HttpStatus.OK).body(mainFarmers);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("최신 게시물 조회 중 서버 오류 발생");
+    }
+  }
+
 
   //QNA 상세보기
   @GetMapping("/{qnaNum}")

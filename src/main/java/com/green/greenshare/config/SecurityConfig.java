@@ -27,6 +27,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 @EnableWebSecurity //해당클래스가  Security 설정을 컨트롤할 수 있도록 세팅하는 어노테이션
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
+
 public class SecurityConfig {
   private final JwtUtil jwtUtil;
 

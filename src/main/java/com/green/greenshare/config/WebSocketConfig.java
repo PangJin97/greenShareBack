@@ -15,7 +15,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   public void registerStompEndpoints(StompEndpointRegistry registry) {
     registry.addEndpoint("/ws") // React에서 연결할 endpoint
             .setAllowedOriginPatterns("*")
-            .withSockJS(); // fallback
+            //.setAllowedOrigins("*")
+            .withSockJS();
   }
 
   @Override

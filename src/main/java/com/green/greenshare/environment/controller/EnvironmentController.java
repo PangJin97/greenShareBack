@@ -6,6 +6,7 @@ import com.green.greenshare.environment.service.EnvironmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,6 +87,7 @@ public class EnvironmentController {
 
   /*시간 간격으로 토양수분값을 받아오는 api*/
   /*localhost:8080/api/environment/soil*/
+  /*어드민만 볼 수 있게*/
   @GetMapping("/soil")
   public ResponseEntity<?> getSoilByInterval(@RequestParam String interval) {
 
@@ -106,6 +108,7 @@ public class EnvironmentController {
 
   /*시간 간격으로 습도값을 받아오는 api*/
   /*localhost:8080/api/environment/humid*/
+
   @GetMapping("/humid")
   public ResponseEntity<?> getHumidByInterval(@RequestParam String interval) {
 

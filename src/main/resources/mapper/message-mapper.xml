@@ -15,6 +15,11 @@
         WHERE RECEIVER_EMAIL = #{receiverEmail}
         ORDER BY SENT_AT DESC
     </select>
+
+    <delete id="deleteNote">
+        DELETE FROM NOTE
+        WHERE ID = #{id}
+    </delete>
 	
 </mapper>
 

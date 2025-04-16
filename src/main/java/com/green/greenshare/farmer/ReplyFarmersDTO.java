@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class ReplyFarmersDTO {
   private int replyNum;
   private String content;
-  private String writer;
+  private String userEmail;
   private LocalDateTime date;
   private int boardNum;
 }

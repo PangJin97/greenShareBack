@@ -28,6 +28,4 @@ public interface FarmerMapper {
   //조회수 증가
   public  int updateViews(int boardNum);
 
-  // 작성자 이메일 조회 (권한 체크용)
-  public String selectWriterEmail(int boardNum);
 }

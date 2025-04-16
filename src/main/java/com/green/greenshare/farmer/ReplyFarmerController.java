@@ -1,9 +1,11 @@
 package com.green.greenshare.farmer;
 
+import com.green.greenshare.jwt.JwtUtil;
 import com.green.greenshare.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequestMapping("/replyFarmers")
 public class ReplyFarmerController {
   private final ReplyFarmerService replyFarmerService;
+  private final JwtUtil jwtUtil;
 
 
   //댓글 조회
@@ -32,9 +35,15 @@ public class ReplyFarmerController {
   }
 
   //댓글 등록
+  @PreAuthorize("isAuthenticated()")
   @PostMapping("")
-  public ResponseEntity<?> insertReply(@RequestBody ReplyFarmersDTO replyFarmersDTO) {
+  public ResponseEntity<?> insertReply(
+          @RequestBody ReplyFarmersDTO replyFarmersDTO,
+          @RequestHeader("Authorization") String token) {
     try {
+      String userEmail = jwtUtil.getUsername(token.split(" ")[1]);
+      replyFarmersDTO.setUserEmail(userEmail);
+
       int insertReply = replyFarmerService.insertReply(replyFarmersDTO);
 
       return ResponseEntity.status(HttpStatus.OK).body(insertReply);
@@ -46,6 +55,7 @@ public class ReplyFarmerController {
 
 
   //댓글 삭제
+  @PreAuthorize("isAuthenticated()")
   @DeleteMapping("/{replyNum}")
   public ResponseEntity<?> deleteReply(@PathVariable("replyNum") int replyNum) {
     try {

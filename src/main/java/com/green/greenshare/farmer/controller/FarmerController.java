@@ -3,9 +3,14 @@ package com.green.greenshare.farmer.controller;
 import com.green.greenshare.farmer.dto.FarmerDTO;
 import com.green.greenshare.farmer.service.FarmerService;
 import com.green.greenshare.jwt.JwtUtil;
+import com.green.greenshare.plantStory.dto.PlantStoryDTO;
+import com.green.greenshare.qna.dto.QnaDTO;
 import lombok.RequiredArgsConstructor;
+import org.apache.el.parser.Token;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,24 +24,12 @@ public class FarmerController {
 
 
   @GetMapping("")
-  public ResponseEntity<?> farmerList(@RequestHeader(name = "Authorization", required = false) String token,
-                                      FarmerDTO farmerDTO) {
+  public ResponseEntity<?> farmerList(FarmerDTO farmerDTO) {
     try {
-      String userEmail = null;
+      List<FarmerDTO> farmerList = farmerService.farmerList(farmerDTO);
 
-      // 토큰이 null이 아니고 "Bearer "로 시작하면 처리
-      if (token != null && token.startsWith("Bearer ")) {
-        String realToken = token.split(" ")[1];
-
-        // 만료되지 않은 경우에만 이메일 추출
-        if (!jwtUtil.isExpired(realToken)) {
-          userEmail = jwtUtil.getUsername(realToken);
-        }
-      }
-
-      farmerDTO.setUserEmail(userEmail);
-      List<FarmerDTO> farmers = farmerService.farmerList(farmerDTO);
-      return ResponseEntity.status(HttpStatus.OK).body(farmers);
+      // ✅ farmerList 자체를 응답으로 보내야 함!
+      return ResponseEntity.status(HttpStatus.OK).body(farmerList);
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -59,12 +52,14 @@ public class FarmerController {
     }
   }
 
-  //상세조회
+
+  //공지사항  상세보기
   @GetMapping("/{boardNum}")
   public ResponseEntity<?> selectFarmer(@PathVariable("boardNum") int boardNum) {
     try {
-      FarmerDTO findFarmer = farmerService.selectFarmer(boardNum);
-      return ResponseEntity.status(HttpStatus.OK).body(findFarmer);
+      FarmerDTO selectFarmer = farmerService.selectFarmer(boardNum);
+
+      return ResponseEntity.status(HttpStatus.OK).body(selectFarmer);
     } catch (Exception e) {
       e.printStackTrace();
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -73,78 +68,51 @@ public class FarmerController {
   }
 
 
-  //등록
+  //공지사항 게시글 등록
+  @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("")
-  public ResponseEntity<?> insertFarmers(
+  public ResponseEntity<?> insertFarmer(
           @RequestBody FarmerDTO farmerDTO,
           @RequestHeader("Authorization") String token
   ) {
     try {
       String userEmail = jwtUtil.getUsername(token.split(" ")[1]);
-      String role = jwtUtil.getRole(token.split(" ")[1]);  // role 정보를 가져온다고 가정
+      farmerDTO.setUserEmail(userEmail);
 
-      if (role == null || (!role.equals("ADMIN") && !role.equals("USER"))) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("권한이 없습니다.");
-      }
 
-      int putFarmers = farmerService.insertFarmers(farmerDTO);
-      return ResponseEntity.status(HttpStatus.OK).body(putFarmers);
+      int insertFarmers = farmerService.insertFarmers(farmerDTO);
+
+      return ResponseEntity.status(HttpStatus.OK).body(insertFarmers);
     } catch (Exception e) {
+      // 예외 발생 시 서버 오류 응답
       e.printStackTrace();
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록 중 서버 오류 발생");
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("농부 등록 중 서버 오류");
     }
   }
 
 
-
-  //수정
+  //공지사항 수정
+  @PreAuthorize("hasRole('ADMIN')")
   @PutMapping("/{boardNum}")
-  public ResponseEntity<?> updateFarmers(
-          @PathVariable("boardNum") int boardNum,
-          @RequestBody FarmerDTO farmerDTO,
-          @RequestHeader("Authorization") String token
-  ) {
+  public ResponseEntity<?>  updateFarmers(@PathVariable("boardNum") int boardNum,@RequestBody FarmerDTO farmerDTO){
     try {
-      String userEmail = jwtUtil.getUsername(token.split(" ")[1]);
-
-      String writerEmail = farmerService.selectWriterEmail(boardNum);
-      // 작성자 이메일과 현재 사용자가 일치하는지 확인
-      if (!userEmail.equals(writerEmail)) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("자신의 게시글만 수정 가능합니다.");
-      }
-
-      farmerDTO.setBoardNum(boardNum);
-
-      int updateResult = farmerService.updateFarmers(farmerDTO);
-      return ResponseEntity.status(HttpStatus.OK).body(updateResult);
-
-    } catch (Exception e) {
+      int updateFarmers = farmerService.updateFarmers(farmerDTO);
+      return ResponseEntity.status(HttpStatus.OK).body(updateFarmers);
+    }catch (Exception e){
       e.printStackTrace();
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("수정 중 서버 오류 발생");
     }
   }
 
-  @DeleteMapping("/{boardNum}")
-  public ResponseEntity<?> deleteFarmers(@PathVariable("boardNum") int boardNum,
-                                         @RequestHeader("Authorization") String token) {
-
+  //공지사항 질문 삭제
+  @PreAuthorize("hasRole('ADMIN')")
+  @DeleteMapping("/{deleteFarmers}")
+  public  ResponseEntity<?>  deleteFarmers(@PathVariable("boardNum") int boardNum){
     try {
-      // 인증된 사용자 이메일 추출
-      String userEmail = jwtUtil.getUsername(token.split(" ")[1]);
-
-      // 게시글의 작성자 이메일을 가져옴
-      String writerEmail = farmerService.selectWriterEmail(boardNum);
-
-      // 작성자 이메일과 현재 사용자가 일치하는지 확인
-      if (!userEmail.equals(writerEmail)) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("자신의 게시글만 삭제 가능합니다.");
-      }
-
-      // 게시글 삭제
-      int deleteResult = farmerService.deleteFarmers(boardNum);
-      return ResponseEntity.status(HttpStatus.OK).body(deleteResult);
-
-    } catch (Exception e) {
+      int deleteFarmers = farmerService.deleteFarmers(boardNum);
+      return ResponseEntity.status(HttpStatus.OK).body(deleteFarmers);
+    }catch (Exception e){
       e.printStackTrace();
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 중 서버 오류 발생");
     }

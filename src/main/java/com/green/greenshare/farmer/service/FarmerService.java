@@ -25,6 +25,5 @@ public interface FarmerService {
   //삭제
   public  int deleteFarmers(int boardNum);
 
-  // 작성자 이메일 조회 (권한 체크용)
-  public String selectWriterEmail(int boardNum);
+
 }

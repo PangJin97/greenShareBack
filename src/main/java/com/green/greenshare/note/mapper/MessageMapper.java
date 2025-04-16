@@ -14,4 +14,7 @@ public interface MessageMapper {
   /*받은 쪽지 리스트 조회*/
   public List<MessageDTO> selectReceivedNotes(String receiverEmail);
 
+  /*쪽지 삭제*/
+  public int deleteNote(int id);
+
 }

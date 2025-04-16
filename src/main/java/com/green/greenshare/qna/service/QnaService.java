@@ -8,6 +8,9 @@ public interface QnaService {
   //qna 질문 목록 조회
   public List<QnaDTO> qnaList(QnaDTO userDTO);
 
+  //qna 목록 최대 5개까지 조회
+  public  List<QnaDTO> mainQna();
+
   //qna 질문 상세 조회
   public QnaDTO selectQna(int qnaNum);
 

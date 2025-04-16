@@ -99,10 +99,5 @@
         LIMIT 5
     </select>
 
-    <!--작성자 이메일 조회-->
-    <select id="selectWriterEmail" resultType="String">
-        SELECT USER_EMAIL FROM board_farmers
-        WHERE BOARD_NUM = #{boardNum}
-    </select>
 
 </mapper>

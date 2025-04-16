@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class FarmerDTO {
   private int boardNum;
   private String title;
-  private String UserEmail;
+  private String userEmail;
   private String content;
   private int views;
   private LocalDateTime date;

@@ -13,12 +13,12 @@
     <!--댓글 등록-->
     <insert id="insertReply">
         INSERT INTO REPLY_FARMERS
-        (WRITER,
+        (USER_EMAIL,
         CONTENT,
         BOARD_NUM)
         VALUES
         (
-        #{writer},
+        #{userEmail},
         #{content},
         #{boardNum}
         )

@@ -51,12 +51,6 @@ public class FarmerServiceImpl implements FarmerService{
     return farmerMapper.deleteFarmers(boardNum);
   }
 
-  // 작성자 이메일 조회 (권한 체크용)
-  @Override
-  public String selectWriterEmail(int boardNum) {
-    return farmerMapper.selectWriterEmail(boardNum);
-  }
-
 
 }
 

@@ -51,4 +51,16 @@ public class  UserController {
     }
   }
 
+  @GetMapping("/checkReceiverId")
+  public boolean checkReceiverId(@RequestParam("userEmail") String userEmail){
+    //수신자 조회, 수신자 없으면 null 받아옴
+    UserDTO userDTO = userService.getUserForLogin(userEmail);
+
+    //수신자 존재하면 return true
+    return userDTO != null;
+
+
+
+  }
+
 }

@@ -6,6 +6,7 @@ import com.green.greenshare.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class FarmerController {
   private final JwtUtil jwtUtil;
 
 
+  //목록 조회
   @GetMapping("")
   public ResponseEntity<?> farmerList(@RequestHeader(name = "Authorization", required = false) String token,
                                       FarmerDTO farmerDTO) {
@@ -73,31 +75,54 @@ public class FarmerController {
   }
 
 
-  //등록
-  @PostMapping("")
+  @PreAuthorize("isAuthenticated()")
+  @PostMapping("/farmers")  // 정확한 경로 설정
   public ResponseEntity<?> insertFarmers(
           @RequestBody FarmerDTO farmerDTO,
           @RequestHeader("Authorization") String token
   ) {
     try {
-      String userEmail = jwtUtil.getUsername(token.split(" ")[1]);
-      String role = jwtUtil.getRole(token.split(" ")[1]);  // role 정보를 가져온다고 가정
+      String userEmail = null;
+      String role = null;
 
-      if (role == null || (!role.equals("ADMIN") && !role.equals("USER"))) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("권한이 없습니다.");
+      // 토큰이 null이 아니고 "Bearer "로 시작하면 처리
+      if (token != null && token.startsWith("Bearer ")) {
+        String realToken = token.split(" ")[1];
+
+        // 만료되지 않은 경우에만 이메일과 역할을 추출
+        if (!jwtUtil.isExpired(realToken)) {
+          userEmail = jwtUtil.getUsername(realToken); // 이메일 추출
+          role = jwtUtil.getRole(realToken);           // 역할 추출
+        }
       }
 
+      // 토큰이 없거나 만료되었을 때
+      if (userEmail == null || role == null) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("유효하지 않은 토큰입니다.");
+      }
+
+      // 권한 체크: ADMIN만 허용 (USER를 포함하지 않음)
+      if (!role.equals("ROLE_ADMIN")) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 권한이 없습니다.");
+      }
+
+      // farmerDTO에 이메일 추가
+      farmerDTO.setUserEmail(userEmail);
+
+      // 농부 등록 서비스 호출
       int putFarmers = farmerService.insertFarmers(farmerDTO);
       return ResponseEntity.status(HttpStatus.OK).body(putFarmers);
+
     } catch (Exception e) {
       e.printStackTrace();
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록 중 서버 오류 발생");
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("등록 중 서버 오류 발생");
     }
   }
 
 
-
   //수정
+  @PreAuthorize("isAuthenticated()")
   @PutMapping("/{boardNum}")
   public ResponseEntity<?> updateFarmers(
           @PathVariable("boardNum") int boardNum,

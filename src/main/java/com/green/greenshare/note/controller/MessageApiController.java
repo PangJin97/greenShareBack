@@ -1,14 +1,12 @@
 package com.green.greenshare.note.controller;
 
+import com.green.greenshare.jwt.JwtUtil;
 import com.green.greenshare.note.dto.MessageDTO;
 import com.green.greenshare.note.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,13 +14,19 @@ import java.util.List;
 @RequestMapping("/notes")
 @RequiredArgsConstructor
 public class MessageApiController {
+  private final JwtUtil jwtUtil;
   private final MessageService messageService;
 
   @GetMapping("")
-  public ResponseEntity<?> getReceivedNotes(@RequestParam String receiverEmail){
+  public ResponseEntity<?> getReceivedNotes(@RequestHeader("Authorization") String token){
       try {
-        List<MessageDTO> notes = messageService.selectReceivedNotes(receiverEmail);
-        return ResponseEntity.ok(notes);
+
+        String userEmail = jwtUtil.getUsername(token.split(" ")[1]);
+
+
+        List<MessageDTO> notes = messageService.selectReceivedNotes(userEmail);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(notes);
 
       }catch(Exception e){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

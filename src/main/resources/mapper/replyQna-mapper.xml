@@ -3,8 +3,8 @@
 <mapper namespace="com.green.greenshare.qna.mapper.ReplyQnaMapper">
 
     <!--qna 기능-->
-    <!--답변 조회-->
 
+    <!--게시글의 답변 조회-->
     <select id="replySelect" resultType="ReplyQnaDTO">
         SELECT * FROM QNA_REPLY
         WHERE QNA_NUM = #{qnaNum}

@@ -10,5 +10,5 @@ public class ReplyQnaDTO {
   private String  content;
   private String userEmail;
   private LocalDateTime date;
-  private  int qnaNum;
+  private int qnaNum;
 }

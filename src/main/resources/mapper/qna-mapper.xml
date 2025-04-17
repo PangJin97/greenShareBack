@@ -11,7 +11,7 @@
         <result column="DATE"               property="date"/>
         <result column="SELECT_WORD"        property="selectWord"/>
         <result column="SELECT_LOG"         property="searchLog"/>
-        <result column="STATUS"         property="status"/>
+        <result column="VIEWS"         property="views"/>
         <result column="QNA_TEST"         property="qnaTest"/>
 
         <association property="replyQnaDTO" javaType="ReplyQnaDTO">
@@ -77,6 +77,13 @@
         WHERE QNA_NUM = #{qnaNum}
     </delete>
 
+    <!--조회수 증가-->
+    <update id="updateViews">
+        UPDATE QNA_BOARD
+        SET
+        VIEWS = VIEWS + 1
+        WHERE QNA_NUM = #{qnaNum}
+    </update>
 
 
 </mapper>

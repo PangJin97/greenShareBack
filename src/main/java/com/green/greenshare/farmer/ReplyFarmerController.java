@@ -34,7 +34,7 @@ public class ReplyFarmerController {
   }
 
   //댓글 등록
-  @PreAuthorize("isAuthenticated()")
+  @PreAuthorize("hasAnyRole('ADMIN','FARMER')")
   @PostMapping("")
   public ResponseEntity<?> insertReply(
           @RequestBody ReplyFarmersDTO replyFarmersDTO,
@@ -54,7 +54,7 @@ public class ReplyFarmerController {
 
 
   //댓글 삭제
-  @PreAuthorize("isAuthenticated()")
+  @PreAuthorize("hasAnyRole('ADMIN','FARMER')")
   @DeleteMapping("/{replyNum}")
   public ResponseEntity<?> deleteReply(@PathVariable("replyNum") int replyNum) {
     try {

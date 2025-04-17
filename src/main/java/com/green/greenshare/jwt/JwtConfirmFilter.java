@@ -60,7 +60,7 @@ public class JwtConfirmFilter extends OncePerRequestFilter {
     //userEntity를 생성하여 값 set
     UserDTO user = new UserDTO();
     user.setUserEmail(username);
-    user.setUserPassword(role);
+    user.setUserRole(role);
 
     //UserDetails에 회원 정보 객체 담기
     CustomUserDetails customUserDetails = new CustomUserDetails(user);

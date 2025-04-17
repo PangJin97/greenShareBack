@@ -107,7 +107,7 @@ public class FarmerController {
 
   //공지사항 질문 삭제
   @PreAuthorize("hasRole('ADMIN')")
-  @DeleteMapping("/{deleteFarmers}")
+  @DeleteMapping("/{boardNum}")
   public  ResponseEntity<?>  deleteFarmers(@PathVariable("boardNum") int boardNum){
     try {
       int deleteFarmers = farmerService.deleteFarmers(boardNum);

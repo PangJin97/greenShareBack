@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface MessageService {
 
-  /*쪽지 등록(송수신)*/
+  /*채팅 기록 등록(송수신)*/
   public int insertNote(MessageDTO messageDTO);
 
-  /*쪽지 목록 조회*/
+  /* 채팅 이력 조회*/
   public List<MessageDTO> selectReceivedNotes(String receiverEmail);
 
-  /*본인의 쪽지 삭제*/
+  /**/
   public int deleteNote(int id);
 }

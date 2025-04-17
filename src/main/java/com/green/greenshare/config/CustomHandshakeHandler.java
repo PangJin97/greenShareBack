@@ -27,7 +27,6 @@ public class CustomHandshakeHandler extends DefaultHandshakeHandler {
   ) {
     String token = (String) attributes.get("token");
     String email = jwtUtil.getUsername(token.split(" ")[1]); // JWT 디코딩해서 사용자 이메일 추출
-    System.out.println("####" + email);
     return new UsernamePasswordAuthenticationToken(email, null, List.of());
   }
 }

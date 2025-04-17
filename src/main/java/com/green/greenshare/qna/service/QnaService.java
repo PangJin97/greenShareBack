@@ -22,4 +22,5 @@ public interface QnaService {
 
   //qna 글 삭제
   public int deleteQna(int qnaNum);
+
 }

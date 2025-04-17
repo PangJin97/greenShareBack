@@ -18,8 +18,8 @@ public class ReplyQnaController {
   private final ReplyQnaService replyQnaService;
   private final JwtUtil jwtUtil;
 
-  // qna 질문
-  @GetMapping("/{qnaNum}")
+  // qna 질문(댓글) 조회
+  @GetMapping("/{boardNum}")
   public ResponseEntity<?> replySelect(@PathVariable("boardNum") int boardNum) {
     try {
       List<ReplyQnaDTO> replySelect = replyQnaService.replySelect(boardNum);
@@ -34,8 +34,8 @@ public class ReplyQnaController {
     }
   }
 
-  //댓글 등록
-  @PreAuthorize("isAuthenticated()")
+  //qna 댓글 등록
+  @PreAuthorize("hasAnyRole('ADMIN','FARMER')")
   @PostMapping("")
   public ResponseEntity<?> insertReply(
           @RequestBody ReplyQnaDTO ReplyQnaDTO,
@@ -43,6 +43,7 @@ public class ReplyQnaController {
     try {
       String userEmail = jwtUtil.getUsername(token.split(" ")[1]);
       ReplyQnaDTO.setUserEmail(userEmail);
+
 
       int insertReply = replyQnaService.insertReply(ReplyQnaDTO);
 
@@ -54,7 +55,7 @@ public class ReplyQnaController {
   }
 
   //댓글 삭제
-  @PreAuthorize("isAuthenticated()")
+  @PreAuthorize("hasAnyRole('ADMIN','FARMER')")
   @DeleteMapping("/{replyNum}")
   public ResponseEntity<?> deleteReply(@PathVariable("replyNum") int replyNum) {
     try {

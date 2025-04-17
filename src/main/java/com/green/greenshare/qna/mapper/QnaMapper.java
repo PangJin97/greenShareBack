@@ -24,4 +24,8 @@ public interface QnaMapper {
 
   //qna 글 삭제
   public int deleteQna(int qnaNum);
+
+  //조회수 증가
+  public  int updateViews(int qnaNum);
+
 }

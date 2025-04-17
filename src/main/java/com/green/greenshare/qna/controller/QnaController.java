@@ -68,7 +68,7 @@ public class QnaController {
   }
 
   //QNA 등록
-  @PreAuthorize("isAuthenticated()")
+  @PreAuthorize("hasAnyRole('ADMIN','FARMER')")
   @PostMapping("")
   public ResponseEntity<?> insertQna(
           @RequestBody QnaDTO qnaDTO,
@@ -87,7 +87,7 @@ public class QnaController {
   }
 
   //QNA 수정
-  @PreAuthorize("isAuthenticated()")
+  @PreAuthorize("hasAnyRole('ADMIN','FARMER')")
   @PutMapping("/{qnaNum}")
   public ResponseEntity<?>  updateQna(@PathVariable("qnaNum") int qnaNum,@RequestBody QnaDTO qnaDTO){
     try {
@@ -101,7 +101,7 @@ public class QnaController {
   }
 
   //QNA 질문 삭제
-  @PreAuthorize("hasAnyRole('ADMIN,'USER')")
+  @PreAuthorize("hasAnyRole('ADMIN','FARMER')")
   @DeleteMapping("/{qnaNum}")
   public  ResponseEntity<?>  deleteQna(@PathVariable("qnaNum") int qnaNum){
     try {

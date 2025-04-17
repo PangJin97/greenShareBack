@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Data
 public class QnaDTO {
   private int qnaNum;
-  private String status;
+  private int views;
   private String title;
   private String userEmail;
   private String content;

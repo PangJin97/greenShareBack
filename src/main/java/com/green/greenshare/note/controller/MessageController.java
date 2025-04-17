@@ -11,6 +11,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import java.security.Principal;
+
 @RequiredArgsConstructor
 @Controller
 public class MessageController {
@@ -20,17 +22,17 @@ public class MessageController {
   private final SimpMessagingTemplate messagingTemplate;
   private final MessageService messageService;
 
-  @MessageMapping("/message/send")
+  @MessageMapping("/note/555")
   public void sendMessage(MessageDTO message) {
+    System.out.println("👉 message: " + message);
+    System.out.println("📨 receiver: " + message.getReceiverEmail());
 
-    // ✅ 콘솔 로그 추가
-    System.out.println("📥 쪽지 수신됨 - 보낸 사람: " + message.getSenderEmail() + ", 받는 사람: " + message.getReceiverEmail());
 
     messageService.insertNote(message);
 
     messagingTemplate.convertAndSendToUser(
             message.getReceiverEmail(),
-            "/queue/messages",
+            "/queue/notes",
             message
     );
   }

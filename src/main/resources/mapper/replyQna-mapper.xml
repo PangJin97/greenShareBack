@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.green.greenshare.farmer.ReplyFarmerMapper">
+<mapper namespace="com.green.greenshare.qna.mapper.ReplyQnaMapper">
+
+    <!--qna 기능-->
+    <!--답변 조회-->
+
+    <select id="replySelect" resultType="ReplyQnaDTO">
+        SELECT * FROM QNA_REPLY
+        WHERE QNA_NUM = #{qnaNum}
+    </select>
 
 
+    <!--답변등록-->
+    <insert id="insertReply">
+        INSERT INTO QNA_REPLY
+        (USER_EMAIL,
+        CONTENT,
+        QNA_NUM)
+        VALUES
+        (
+        #{userEmail},
+        #{content},
+        #{qnaNum}
+        )
+    </insert>
+
+    <!--답변 삭제-->
+    <delete id="deleteReply">
+        DELETE FROM QNA_REPLY
+        WHERE REPLY_NUM=#{replyNum}
+    </delete>
 
 </mapper>

@@ -12,6 +12,7 @@
         <result column="DATE"               property="date"/>
         <result column="SELECT_WORD"        property="selectWord"/>
         <result column="SELECT_LOG"         property="searchLog"/>
+        <result column="LATEST"         property="latest"/>
         <association property="replyFarmersDTO" javaType="replyFarmersDTO">
             <id column="REPLY_NUM" property="replyNum"/>
             <result column="CONTENT" property="content"/>

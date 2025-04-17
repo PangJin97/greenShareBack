@@ -1,11 +1,13 @@
 package com.green.greenshare.qna.controller;
 
 import com.green.greenshare.farmer.dto.FarmerDTO;
+import com.green.greenshare.jwt.JwtUtil;
 import com.green.greenshare.qna.dto.QnaDTO;
 import com.green.greenshare.qna.service.QnaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
 @RequestMapping("/qna")
 public class QnaController {
   private  final QnaService qnaService;
+  private final JwtUtil jwtUtil;
 
   //QNA 목록 조회
   @GetMapping("")
@@ -65,9 +68,14 @@ public class QnaController {
   }
 
   //QNA 등록
+  @PreAuthorize("isAuthenticated()")
   @PostMapping("")
-  public ResponseEntity<?> insertQna(@RequestBody QnaDTO qnaDTO){
+  public ResponseEntity<?> insertQna(
+          @RequestBody QnaDTO qnaDTO,
+          @RequestHeader("Authorization") String token){
     try {
+      String userEmail = jwtUtil.getUsername(token.split(" ")[1]);
+      qnaDTO.setUserEmail(userEmail);
       int insertQna = qnaService.insertQna(qnaDTO);
 
       return ResponseEntity.status(HttpStatus.OK).body(insertQna);
@@ -79,6 +87,7 @@ public class QnaController {
   }
 
   //QNA 수정
+  @PreAuthorize("isAuthenticated()")
   @PutMapping("/{qnaNum}")
   public ResponseEntity<?>  updateQna(@PathVariable("qnaNum") int qnaNum,@RequestBody QnaDTO qnaDTO){
     try {
@@ -92,6 +101,7 @@ public class QnaController {
   }
 
   //QNA 질문 삭제
+  @PreAuthorize("hasAnyRole('ADMIN,'USER')")
   @DeleteMapping("/{qnaNum}")
   public  ResponseEntity<?>  deleteQna(@PathVariable("qnaNum") int qnaNum){
     try {

@@ -1,7 +1,6 @@
 package com.green.greenshare.farmer;
 
 import com.green.greenshare.jwt.JwtUtil;
-import com.green.greenshare.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

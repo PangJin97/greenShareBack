@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class ReplyQnaDTO {
   private int replyNum;
   private String  content;
-  private String writer;
+  private String userEmail;
   private LocalDateTime date;
   private  int qnaNum;
 }

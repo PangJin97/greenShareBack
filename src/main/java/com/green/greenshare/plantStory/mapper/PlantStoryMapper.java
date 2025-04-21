@@ -34,4 +34,7 @@ public interface PlantStoryMapper {
 
   // 작성자 이메일 조회 (권한 체크용)
   public String getWriterEmail(int boardNum);
+
+  //test 용
+  public List<PlantStoryDTO> selectBoard(PlantStoryDTO plantStoryDTO);
 }

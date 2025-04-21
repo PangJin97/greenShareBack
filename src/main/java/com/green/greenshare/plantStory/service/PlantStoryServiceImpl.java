@@ -57,4 +57,9 @@ public class PlantStoryServiceImpl implements PlantStoryService {
   public String getWriterEmail(int boardNum) {
     return plantStoryMapper.getWriterEmail(boardNum);
   }
+
+  @Override
+  public List<PlantStoryDTO> selectBoard(PlantStoryDTO plantStoryDTO) {
+    return plantStoryMapper.selectBoard(plantStoryDTO);
+  }
 }

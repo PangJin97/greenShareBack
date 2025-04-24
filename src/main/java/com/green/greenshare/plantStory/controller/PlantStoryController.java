@@ -161,4 +161,9 @@ public class PlantStoryController {
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
+  @GetMapping("/test")
+  public List<PlantStoryDTO> selectBoard(PlantStoryDTO plantStoryDTO){
+    return plantStoryService.selectBoard(plantStoryDTO);
+  }
+
 }

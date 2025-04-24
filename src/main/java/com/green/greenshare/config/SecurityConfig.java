@@ -28,7 +28,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
-
+  
 public class SecurityConfig {
 
   private final JwtUtil jwtUtil;

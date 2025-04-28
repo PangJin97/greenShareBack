@@ -7,6 +7,7 @@ import com.green.greenshare.plantStory.service.PlantStoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,12 +43,8 @@ public class PlantStoryController {
   public ResponseEntity<?> getPlantStory(@RequestHeader(name = "Authorization", required = false) String token){
     try {
       //토큰이 null이 아닐때만 로그인 유저 정보 세팅
-      String userEmail = null;
-      if(token != null && !jwtUtil.isExpired(token.split(" ")[1])){
+      String userEmail = token != null ? jwtUtil.getUsername(token.split(" ")[1]) : null;
 
-        String loginUserEmail = jwtUtil.getUsername(token.split(" ")[1]);
-        userEmail = loginUserEmail;
-      }
       List<PlantStoryDTO> getStory = plantStoryService.getPlantStory(userEmail);
       return ResponseEntity.status(HttpStatus.OK).body(getStory);
     }catch(Exception e){

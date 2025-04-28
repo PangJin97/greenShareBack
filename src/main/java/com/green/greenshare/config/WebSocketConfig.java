@@ -19,7 +19,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   public void registerStompEndpoints(StompEndpointRegistry registry) {
     registry.addEndpoint("/ws")
             .addInterceptors(new JwtHandshakeInterceptor(jwtUtil)) // 👈 사용자 세션 주입
-            .setHandshakeHandler(new CustomHandshakeHandler(jwtUtil))
+            .setHandshakeHandler(new CustomHandshakeHandler())
             .setAllowedOriginPatterns("*")
             .withSockJS();
   }

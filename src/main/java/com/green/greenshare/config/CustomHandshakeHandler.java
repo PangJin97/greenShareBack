@@ -19,6 +19,8 @@ import java.util.Map;
 public class CustomHandshakeHandler extends DefaultHandshakeHandler {
   private final JwtUtil jwtUtil;
 
+
+
   @Override
   protected Principal determineUser(
           ServerHttpRequest request,

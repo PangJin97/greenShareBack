@@ -1,8 +1,13 @@
-package com.green.greenshare.farmer;
+package com.green.greenshare.farmer.mapper;
+
+import com.green.greenshare.farmer.dto.ReplyFarmersDTO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-public interface ReplyFarmerService {
+@Mapper
+public interface ReplyFarmerMapper {
+
   //댓글 조회
   public List<ReplyFarmersDTO> replySelect(int boardNum);
 
@@ -11,5 +16,4 @@ public interface ReplyFarmerService {
 
   //댓글 삭제
   public int deleteReply(int replyNum);
-
 }

@@ -25,8 +25,11 @@ public class CustomHandshakeHandler extends DefaultHandshakeHandler {
           WebSocketHandler wsHandler,
           Map<String, Object> attributes
   ) {
-    String token = (String) attributes.get("token");
-    String email = jwtUtil.getUsername(token.split(" ")[1]); // JWT 디코딩해서 사용자 이메일 추출
-    return new UsernamePasswordAuthenticationToken(email, null, List.of());
+    String userEmail = (String) attributes.get("userEmail"); // ✅ 여기! token 말고 userEmail
+    if (userEmail != null) {
+      return new UsernamePasswordAuthenticationToken(userEmail, null, List.of());
+    }
+    return null;
   }
+
 }

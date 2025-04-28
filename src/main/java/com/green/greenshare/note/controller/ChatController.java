@@ -25,6 +25,9 @@ public class ChatController {
   @MessageMapping("/note/send")
   public void sendChat(MessageDTO message, Principal principal) {
 
+    System.out.println("✅ principal name = " + (principal != null ? principal.getName() : "null"));
+    System.out.println("✅ 수신자 이메일 = " + message.getReceiverEmail());
+
     messageService.insertNote(message);
     messagingTemplate.convertAndSendToUser(
             message.getReceiverEmail(),

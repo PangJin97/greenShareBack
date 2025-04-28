@@ -21,12 +21,12 @@ public class  UserController {
   private final UserService userService;
   private final PasswordEncoder passwordEncoder;
 
-  // 로그인하려는 회원의 정보 조회
-  @PostMapping("/login")
-  public ResponseEntity<?> getUserForLogin(@RequestBody UserDTO userDTO) {
-    UserDTO user = userService.getUserForLogin(userDTO.getUserEmail());
-    return ResponseEntity.ok(user);
-  }
+    // 로그인하려는 회원의 정보 조회
+    @PostMapping("/login")
+    public ResponseEntity<?> getUserForLogin(@RequestBody UserDTO userDTO) {
+      UserDTO user = userService.getUserForLogin(userDTO.getUserEmail());
+      return ResponseEntity.ok(user);
+    }
 
 
 
@@ -59,8 +59,16 @@ public class  UserController {
     //수신자 존재하면 return true
     return userDTO != null;
 
-
-
   }
+
+  @GetMapping("/online")
+  public ResponseEntity<?> isUserOnline(@RequestParam("userEmail") String userEmail) {
+    boolean isOnline = userService.isUserOnline(userEmail);
+    return ResponseEntity.ok(isOnline);
+  }
+
+
+
+
 
 }

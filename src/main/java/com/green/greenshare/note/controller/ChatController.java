@@ -23,7 +23,6 @@ public class ChatController {
   }
 
   @MessageMapping("/note/send")
-  @SendTo("/queue/notes")
   public void sendChat(MessageDTO message, Principal principal) {
 
     messageService.insertNote(message);

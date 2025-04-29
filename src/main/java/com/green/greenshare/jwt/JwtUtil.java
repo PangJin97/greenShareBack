@@ -42,6 +42,7 @@ public class JwtUtil {
 
   //token의 만료시간이 지났으면 true, 만료가 되지 않았으면 false를 리턴
   public Boolean isExpired(String token) {
+    System.out.println(token);
     try{
       return parseClaims(token).getExpiration().before(new Date());
     }catch (ExpiredJwtException e){

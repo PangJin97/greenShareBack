@@ -153,6 +153,22 @@ public class PlantStoryController {
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
+  //앱에서 내가 쓴 글만 조회하기
+  @GetMapping("/user/{userEmail}")
+  public ResponseEntity<?> selectMyPost(@PathVariable("userEmail") String userEmail){
+
+    List<PlantStoryDTO> myPost = plantStoryService.selectMyPost(userEmail);
+
+    try {
+      return ResponseEntity.status(HttpStatus.OK)
+              .body(myPost);
+
+    }catch (Exception e){
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("내 글 조회중 서버 오류 발생");
+    }
+  };
+
   @GetMapping("/test")
   public List<PlantStoryDTO> selectBoard(PlantStoryDTO plantStoryDTO){
     return plantStoryService.selectBoard(plantStoryDTO);

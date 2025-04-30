@@ -31,6 +31,9 @@ public interface PlantStoryService {
   // 작성자 이메일 조회 (권한 체크용)
   public String getWriterEmail(int boardNum);
 
+  // 앱에서 로그인 한 사람의 글만 조회하기
+  public List<PlantStoryDTO> selectMyPost(String userEmail);
+
   //test용
   public List<PlantStoryDTO> selectBoard(PlantStoryDTO plantStoryDTO);
 }

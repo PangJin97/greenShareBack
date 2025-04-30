@@ -164,10 +164,25 @@ public class PlantStoryController {
               .body(myPost);
 
     }catch (Exception e){
+      e.printStackTrace();
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
               .body("내 글 조회중 서버 오류 발생");
     }
   };
+
+  // 인기글 조회 (좋아요 수 기준 상위 10개)
+  @GetMapping("/popular")
+  public ResponseEntity<?> getPopularPosts() {
+    try {
+      List<PlantStoryDTO> popularPosts = plantStoryService.getPopularPosts();
+      return ResponseEntity.status(HttpStatus.OK).body(popularPosts);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("인기글 조회 중 서버 오류 발생");
+    }
+  }
+
 
   @GetMapping("/test")
   public List<PlantStoryDTO> selectBoard(PlantStoryDTO plantStoryDTO){

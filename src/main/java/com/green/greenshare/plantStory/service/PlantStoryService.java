@@ -34,6 +34,9 @@ public interface PlantStoryService {
   // 앱에서 로그인 한 사람의 글만 조회하기
   public List<PlantStoryDTO> selectMyPost(String userEmail);
 
+  // 앱에서 홈 화면에 인기 게시글 띄우기(좋아요순)
+  public List<PlantStoryDTO> getPopularPosts();
+
   //test용
   public List<PlantStoryDTO> selectBoard(PlantStoryDTO plantStoryDTO);
 }

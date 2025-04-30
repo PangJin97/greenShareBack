@@ -65,6 +65,11 @@ public class PlantStoryServiceImpl implements PlantStoryService {
   }
 
   @Override
+  public List<PlantStoryDTO> getPopularPosts() {
+    return plantStoryMapper.getPopularPosts();
+  }
+
+  @Override
   public List<PlantStoryDTO> selectBoard(PlantStoryDTO plantStoryDTO) {
     return plantStoryMapper.selectBoard(plantStoryDTO);
   }

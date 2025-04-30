@@ -20,7 +20,7 @@
     </select>
 
     <select id="LastByThread" resultType="DirectDTO">
-        SELECT thread_id, sender, receiver, content, timestamp
+        SELECT *
         FROM messages
         WHERE thread_id = #{threadId}
         <if test="lastMessageId != null">

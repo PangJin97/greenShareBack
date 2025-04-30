@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.greenshare.message.mapper.ThreadMapper">
+
+
+
+
+    <!-- 스레드 생성 또는 조회 -->
+    <select id="findThread" resultType="Long">
+        SELECT id
+        FROM threads
+        WHERE (SENDER = #{sender} AND RECEIVER= #{receiver})
+        OR (SENDER = #{receiver} AND RECEIVER = #{sender})
+    </select>
+
+    <insert id="createThread" parameterType="ThreadDTO">
+        INSERT INTO threads (SENDER, RECEIVER, CHAT_NAME)
+        VALUES (#{sender}, #{receiver},#{chatName})
+    </insert>
+
+    <select id="getThreadById" resultType="ThreadDTO">
+        SELECT id, SENDER, RECEIVER, created_at, chat_name
+        FROM threads
+        WHERE ID = #{id}
+    </select>
+
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

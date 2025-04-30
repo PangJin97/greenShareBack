@@ -12,9 +12,7 @@ import java.time.LocalDateTime;
  * last-update : 2025.04.11
  */
 @Data
-@Getter
-@Setter
-@ToString
+
 public class UserDTO {
   private String userEmail;
   private String userPassword;

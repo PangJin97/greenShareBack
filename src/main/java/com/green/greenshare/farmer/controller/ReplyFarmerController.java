@@ -1,5 +1,7 @@
-package com.green.greenshare.farmer;
+package com.green.greenshare.farmer.controller;
 
+import com.green.greenshare.farmer.service.ReplyFarmerService;
+import com.green.greenshare.farmer.dto.ReplyFarmersDTO;
 import com.green.greenshare.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

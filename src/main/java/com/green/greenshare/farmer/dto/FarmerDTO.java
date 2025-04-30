@@ -1,6 +1,5 @@
 package com.green.greenshare.farmer.dto;
 
-import com.green.greenshare.farmer.ReplyFarmersDTO;
 import lombok.Data;
 
 import java.time.LocalDateTime;

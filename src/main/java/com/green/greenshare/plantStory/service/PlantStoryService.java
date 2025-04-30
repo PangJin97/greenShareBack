@@ -30,5 +30,8 @@ public interface PlantStoryService {
 
   // 작성자 이메일 조회 (권한 체크용)
   public String getWriterEmail(int boardNum);
+
+  //test용
+  public List<PlantStoryDTO> selectBoard(PlantStoryDTO plantStoryDTO);
 }
 

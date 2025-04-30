@@ -105,6 +105,24 @@
     </select>
 
 
+    <resultMap id="plantStory1" type="PlantStoryDTO">
+        <id column="BOARD_NUM" property="boardNum" />
+        <result column="TITLE" property="title" />
+        <result column="READ_CNT" property="readCnt" />
+        <result column="REG_DATE" property="regDate" />
+        <result column="USER_EMAIL" property="userEmail" />
+        <result column="IS_FOLLOW" property="isFollow" />
+    </resultMap>
+
+
+
+    <select id="selectBoard" resultMap="plantStory1">
+        SELECT BOARD_NUM, USER_EMAIL, TITLE,REG_DATE,
+        IS_LIKE,LIKE_CNT,REPLY_CNT,IS_FOLLOW
+        FROM PLANT_STORY
+    </select>
+
+
 </mapper>
 
 

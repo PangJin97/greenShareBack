@@ -1,5 +1,7 @@
-package com.green.greenshare.farmer;
+package com.green.greenshare.farmer.service;
 
+import com.green.greenshare.farmer.dto.ReplyFarmersDTO;
+import com.green.greenshare.farmer.mapper.ReplyFarmerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

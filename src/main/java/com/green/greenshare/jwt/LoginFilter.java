@@ -98,8 +98,11 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     CustomUserDetails customUserDetails = (CustomUserDetails) authResult.getPrincipal();
     String userName = customUserDetails.getUserDTO().getUserName();
 
+    String clientType = request.getHeader("clientType"); //app -> app, web -> null
+    clientType =clientType == null ? "web" : clientType;
+
   //토큰 생성
-    String accessToken = jwtUtil.createJwt(username, role, userName, (1000 * 60 * 60)); //30분
+    String accessToken = jwtUtil.createJwt(username, role, userName, (1000 * 60 * 60),clientType); //30분
 
   //생성한 토큰을 응답 헤더에 담아 클라이언트에 전달
     response.setHeader("Access-Control-Expose-Headers", "Authorization");

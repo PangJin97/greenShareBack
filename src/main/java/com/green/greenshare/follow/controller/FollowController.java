@@ -3,7 +3,10 @@ package com.green.greenshare.follow.controller;
 
 import com.green.greenshare.follow.service.FollowService;
 import com.green.greenshare.follow.dto.FollowDTO;
+import com.green.greenshare.jwt.JwtUtil;
+import com.green.greenshare.user.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +19,8 @@ public class FollowController {
 
   //팔로우 쿼리
   @PostMapping("/insert")
-  public int insertFollow(@RequestBody FollowDTO followDTO) {
+  public int insertFollow(@RequestBody FollowDTO followDTO, @AuthenticationPrincipal CustomUserDetails userDetails) {
+    followDTO.setFromUserEmail(userDetails.getUsername());
     return followService.insertFollow(followDTO);
   }
 

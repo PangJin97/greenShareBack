@@ -19,7 +19,16 @@
         WHERE thread_id = #{threadId}
     </select>
 
-
+    <select id="LastByThread" resultType="DirectDTO">
+        SELECT thread_id, sender, receiver, content, timestamp
+        FROM messages
+        WHERE thread_id = #{threadId}
+        <if test="lastMessageId != null">
+            AND id &lt; #{lastMessageId}
+        </if>
+        ORDER BY id DESC
+        LIMIT #{limit}
+    </select>
 
 
 </mapper>

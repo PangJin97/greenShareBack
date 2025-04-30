@@ -10,7 +10,7 @@ import java.util.List;
 public interface ThreadMapper {
 
   /*찾거나 쓰레드를 생성하는 쿼리*/
-  long findThread(ThreadDTO threadDTO);
+  Long findThread(ThreadDTO threadDTO);
 
   /*쓰레드  생성 쿼리*/
   void createThread(ThreadDTO threadDTO);

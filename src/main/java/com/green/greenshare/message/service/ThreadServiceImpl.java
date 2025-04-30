@@ -17,10 +17,13 @@ public class ThreadServiceImpl {
 
 
 
-  public long findThread(ThreadDTO threadDTO){/*쓰레드 조회*/
+  public Long findThread(ThreadDTO threadDTO){/*쓰레드 조회*/
 
     Long threadId = threadMapper.findThread(threadDTO); /*쓰레드가 존재하는지 유무 판단*/
-
+    if (threadId == null) {
+      threadMapper.createThread(threadDTO); // 없으면 생성
+      threadId = threadMapper.findThread(threadDTO); // ✅ 다시 조회한 결과 저장
+    }
     return threadId;
   }
 

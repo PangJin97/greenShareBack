@@ -17,7 +17,7 @@
     </select>
 
     <insert id="createThread" parameterType="ThreadDTO">
-        INSERT INTO threads (SENDEr, RECEIVER, CHAT_NAME)
+        INSERT INTO threads (SENDER, RECEIVER, CHAT_NAME)
         VALUES (#{sender}, #{receiver},#{chatName})
     </insert>
 

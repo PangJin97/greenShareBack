@@ -58,6 +58,12 @@ public class PlantStoryServiceImpl implements PlantStoryService {
     return plantStoryMapper.getWriterEmail(boardNum);
   }
 
+ //앱에서 내가 쓴글만 조회하기
+  @Override
+  public List<PlantStoryDTO> selectMyPost(String userEmail) {
+    return plantStoryMapper.selectMyPost(userEmail);
+  }
+
   @Override
   public List<PlantStoryDTO> selectBoard(PlantStoryDTO plantStoryDTO) {
     return plantStoryMapper.selectBoard(plantStoryDTO);

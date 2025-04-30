@@ -104,6 +104,12 @@
         WHERE BOARD_NUM = #{boardNum}
     </select>
 
+    <!--앱에서 내가 쓴글만 조회하기-->
+    <select id="selectMyPost" resultMap="plantStory">
+        SELECT * FROM PLANT_STORY
+        WHERE USER_EMAIL = #{userEmail}
+    </select>
+
 
     <resultMap id="plantStory1" type="PlantStoryDTO">
         <id column="BOARD_NUM" property="boardNum" />
@@ -123,7 +129,9 @@
     </select>
 
 
+
 </mapper>
+
 
 
 

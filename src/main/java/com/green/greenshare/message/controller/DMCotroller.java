@@ -2,8 +2,10 @@ package com.green.greenshare.message.controller;
 
 import com.green.greenshare.message.DTO.DirectDTO;
 import com.green.greenshare.message.DTO.ThreadDTO;
+import com.green.greenshare.message.mapper.DMMapper;
 import com.green.greenshare.message.service.DirectService;
 import com.green.greenshare.message.service.ThreadServiceImpl;
+import com.green.greenshare.note.mapper.MessageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ public class DMCotroller {
 
   @Autowired
   private DirectService directService;
+
+  @Autowired
+  private DMMapper dmMapper;
 
   @Autowired
   private ThreadServiceImpl threadService;
@@ -47,5 +52,27 @@ public class DMCotroller {
     List<DirectDTO> directDTOS = directService.getMessagesByThread(threadId); // 쓰레드 아이디로 메세지 조회
 
     return ResponseEntity.ok(directDTOS); // 조회한 데이터를 리턴
+  }
+
+  @GetMapping("/more")
+  public ResponseEntity<List<DirectDTO>> loadMoreMessages(
+      @RequestParam("sender") String sender,
+      @RequestParam("receiver") String receiver,
+      @RequestParam(value = "lastMessageId", required = false) Long lastMessageId,
+      @RequestParam(value = "limit", defaultValue = "20") int limit
+  ) {
+    System.out.println("ㅇㅇㅇ");
+
+    // 1. 쓰레드 ID 찾기
+    ThreadDTO threadDTO = new ThreadDTO();
+    threadDTO.setSender(sender);
+    threadDTO.setReceiver(receiver);
+
+    Long threadId = threadService.findThread(threadDTO);
+
+    // 2. 쓰레드 ID로 메시지 조회
+    List<DirectDTO> messages = dmMapper.LastByThread(threadId, lastMessageId, limit);
+
+    return ResponseEntity.ok(messages);
   }
 }

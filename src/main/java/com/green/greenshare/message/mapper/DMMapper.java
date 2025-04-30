@@ -16,4 +16,10 @@ void sendMessage(DirectDTO directDTO);
 /* 쓰레드 아이디로 메세지 조회 쿼리 */
 List<DirectDTO> getMessagesByThread(Long threadId);
 
+List<DirectDTO> LastByThread(
+    @Param("threadId") Long threadId,
+    @Param("lastMessageId") Long lastMessageId,
+    @Param("limit") int limit
+);
+
 }

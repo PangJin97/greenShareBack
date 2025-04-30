@@ -143,12 +143,7 @@ public class PlantStoryController {
           @RequestHeader("Authorization") String token //로그인한 회원의 토큰
   ){
     //토큰이 null이 아닐때만 로그인 유저 정보 세팅
-    String userEmail = null;
-    if(token != null && !jwtUtil.isExpired(token.split(" ")[1])){
-
-      String loginUserEmail = jwtUtil.getUsername(token.split(" ")[1]);
-      userEmail = loginUserEmail;
-    }
+    String userEmail = token != null ? jwtUtil.getUsername(token.split(" ")[1]) : null;
 
     LikeDTO likeDTO = new LikeDTO();
     likeDTO.setBoardNum(boardNum);

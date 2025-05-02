@@ -15,6 +15,7 @@
         <result column="IS_LIKE" property="isLike" />
         <result column="IS_FOLLOW" property="isFollow" />
         <result column="LIKE_CNT" property="likeCnt" />
+        <result column="USER_NAME" property="userName" />
     </resultMap>
 
 
@@ -27,35 +28,45 @@
     <!-- 식물 이야기 게시글 최신순으로 조회 -->
     <select id="getPlantStory" resultMap="plantStory">
         SELECT
-            BOARD_NUM,
-            USER_EMAIL,
-            TITLE,
-            CONTENT,
-            READ_CNT,
+        BOARD_NUM,
+        USER_EMAIL,
+        (
+        SELECT USER_NAME
+        FROM user
+        WHERE USER_EMAIL = PS.USER_EMAIL
+        ) AS USER_NAME,
+        TITLE,
+        CONTENT,
+        READ_CNT,
+
         IFNULL((
-            SELECT 'Y'
-            FROM LIKE_PLANT
-            WHERE USER_EMAIL = IFNULL(#{userEmail}, '')
+        SELECT 'Y'
+        FROM LIKE_PLANT
+        WHERE USER_EMAIL = IFNULL(#{userEmail}, '')
         AND BOARD_NUM = PS.BOARD_NUM
         ), 'N') AS IS_LIKE,
 
         (
-            SELECT COUNT(LIKE_NUM)
-            FROM LIKE_PLANT
-            WHERE BOARD_NUM = PS.BOARD_NUM
+        SELECT COUNT(LIKE_NUM)
+        FROM LIKE_PLANT
+        WHERE BOARD_NUM = PS.BOARD_NUM
         ) AS LIKE_CNT,
+
         (
         SELECT COUNT(COMMENT_ID)
         FROM PLANT_REPLY
         WHERE BOARD_NUM = PS.BOARD_NUM
         ) AS REPLY_CNT,
-        IFNULL((SELECT 'Y'
+
+        IFNULL((
+        SELECT 'Y'
         FROM follow
         WHERE FROM_USER_EMAIL = #{userEmail}
         AND TO_USER_EMAIL = PS.USER_EMAIL
         ), 'N') AS IS_FOLLOW
+
         FROM plant_story PS
-        ORDER BY REG_DATE DESC
+        ORDER BY REG_DATE DESC;
     </select>
 
 

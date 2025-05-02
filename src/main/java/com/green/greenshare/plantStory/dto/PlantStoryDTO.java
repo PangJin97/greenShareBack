@@ -21,4 +21,5 @@ public class PlantStoryDTO {
   private int likeCnt;
   private int replyCnt;
   private String isFollow;
+  private String userName;
 }

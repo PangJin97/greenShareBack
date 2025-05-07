@@ -172,16 +172,22 @@ public class PlantStoryController {
 
   // 인기글 조회 (좋아요 수 기준 상위 10개)
   @GetMapping("/popular")
-  public ResponseEntity<?> getPopularPosts() {
+  public ResponseEntity<?> getPopularPosts(@RequestHeader("Authorization") String token) {
     try {
-      List<PlantStoryDTO> popularPosts = plantStoryService.getPopularPosts();
-      return ResponseEntity.status(HttpStatus.OK).body(popularPosts);
+      String userEmail = jwtUtil.getUsername(token.split(" ")[1]);
+
+      // DTO 대신 Entity나 VO 객체 리스트 반환
+      List<PlantStoryDTO> popularPosts = plantStoryService.getPopularPosts(userEmail);
+
+      return ResponseEntity.ok(popularPosts);
     } catch (Exception e) {
       e.printStackTrace();
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+      return ResponseEntity
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
               .body("인기글 조회 중 서버 오류 발생");
     }
   }
+
 
 
   @GetMapping("/test")

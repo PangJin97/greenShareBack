@@ -71,11 +71,20 @@
 
 
     <!--식물 이야기 상세 조회-->
+    <!--상세 조회에서 유저 네임도 오게 한다.-->
     <select id="detailPlantStory" resultMap="plantStory">
-        SELECT USER_EMAIL, TITLE, REG_DATE, READ_CNT, CONTENT
-        FROM PLANT_STORY
-        WHERE BOARD_NUM = #{boardNum}
+        SELECT
+        PS.USER_EMAIL,
+        U.USER_NAME,
+        PS.TITLE,
+        PS.REG_DATE,
+        PS.READ_CNT,
+        PS.CONTENT
+        FROM PLANT_STORY PS
+        LEFT JOIN USER U ON PS.USER_EMAIL = U.USER_EMAIL
+        WHERE PS.BOARD_NUM = #{boardNum}
     </select>
+
 
     <update id="updateCnt">
         UPDATE PLANT_STORY

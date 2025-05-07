@@ -95,15 +95,17 @@
     </update>
 
     <!--좋아요 선택-->
+<!-- IGNORE : 중복 발생해도 무시    -->
     <insert id="insertLike">
-        INSERT INTO LIKE_PLANT (
-            BOARD_NUM
-            , USER_EMAIL
+        INSERT IGNORE INTO LIKE_PLANT (
+        BOARD_NUM,
+        USER_EMAIL
         ) VALUES (
-            #{boardNum}
-            ,#{userEmail}
+        #{boardNum},
+        #{userEmail}
         )
     </insert>
+
 
     <!--좋아요 해제-->
     <delete id="deleteLike">
@@ -131,7 +133,7 @@
     </select>
 
     <!--인기게시글 조회하기-->
-    <select id="getPopularPosts" resultMap="plantStory">
+    <select id="getPopularPosts" parameterType="string" resultMap="plantStory">
         SELECT
         PS.BOARD_NUM,
         PS.TITLE,
@@ -139,13 +141,23 @@
         PS.READ_CNT,
         PS.REG_DATE,
         PS.USER_EMAIL,
-        COUNT(LP.LIKE_NUM) AS LIKE_CNT
+        COUNT(LP.LIKE_NUM) AS LIKE_CNT,
+
+        (
+        SELECT COUNT(*) > 0
+        FROM LIKE_PLANT L2
+        WHERE L2.BOARD_NUM = PS.BOARD_NUM AND L2.USER_EMAIL = #{userEmail}
+        ) = TRUE AS IS_LIKE
+
         FROM PLANT_STORY PS
-        INNER JOIN LIKE_PLANT LP ON PS.BOARD_NUM = LP.BOARD_NUM
+        LEFT JOIN LIKE_PLANT LP ON PS.BOARD_NUM = LP.BOARD_NUM
+
         GROUP BY PS.BOARD_NUM
         ORDER BY LIKE_CNT DESC
         LIMIT 10
     </select>
+
+
 
 </mapper>
 

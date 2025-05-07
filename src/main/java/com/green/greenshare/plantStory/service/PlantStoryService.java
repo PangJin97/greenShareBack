@@ -35,7 +35,7 @@ public interface PlantStoryService {
   public List<PlantStoryDTO> selectMyPost(String userEmail);
 
   // 앱에서 홈 화면에 인기 게시글 띄우기(좋아요순)
-  public List<PlantStoryDTO> getPopularPosts();
+  public List<PlantStoryDTO> getPopularPosts(String userEmail);
 
   //test용
   public List<PlantStoryDTO> selectBoard(PlantStoryDTO plantStoryDTO);

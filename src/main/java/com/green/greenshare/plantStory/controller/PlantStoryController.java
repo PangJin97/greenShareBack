@@ -172,11 +172,15 @@ public class PlantStoryController {
 
   // 인기글 조회 (좋아요 수 기준 상위 10개)
   @GetMapping("/popular")
-  public ResponseEntity<?> getPopularPosts(@RequestHeader("Authorization") String token) {
+  public ResponseEntity<?> getPopularPosts(
+          @RequestHeader(name = "Authorization", required = false) String token
+  ) {
     try {
-      String userEmail = jwtUtil.getUsername(token.split(" ")[1]);
+      String userEmail = null;
+      if (token != null && token.startsWith("Bearer ")) {
+        userEmail = jwtUtil.getUsername(token.split(" ")[1]);
+      }
 
-      // DTO 대신 Entity나 VO 객체 리스트 반환
       List<PlantStoryDTO> popularPosts = plantStoryService.getPopularPosts(userEmail);
 
       return ResponseEntity.ok(popularPosts);

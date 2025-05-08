@@ -11,6 +11,7 @@
         <result column="BOARD_NUM" property="boardNum" />
         <result column="USER_EMAIL" property="userEmail" />
         <result column="REG_DATE" property="regDate" />
+        <result column="USER_NAME" property="userName" />
     </resultMap>
 
     <!-- 댓글 등록 -->
@@ -26,17 +27,19 @@
         );
     </insert>
 
-    <!-- 댓글 목록 최신순 조회 -->
+   <!--댓글 목록 조회 -->
     <select id="getReplies" resultMap="plantReply">
         SELECT
-        COMMENT_ID,
-        USER_EMAIL,
-        REG_DATE,
-        CONTENT,
-        BOARD_NUM
-        FROM PLANT_REPLY
-        WHERE BOARD_NUM = #{boardNum}
-        ORDER BY REG_DATE ASC
+        R.COMMENT_ID,
+        R.USER_EMAIL,
+        U.USER_NAME,
+        R.REG_DATE,
+        R.CONTENT,
+        R.BOARD_NUM
+        FROM PLANT_REPLY R
+        LEFT JOIN USER U ON R.USER_EMAIL = U.USER_EMAIL
+        WHERE R.BOARD_NUM = #{boardNum}
+        ORDER BY R.REG_DATE ASC
     </select>
 
     <!-- 댓글 삭제 -->

@@ -141,7 +141,7 @@
         FROM PLANT_STORY
     </select>
 
-    <!--인기게시글 조회하기-->
+    <!--상위 인기글 10개 조회-->
     <select id="getPopularPosts" parameterType="string" resultMap="plantStory">
         SELECT
         PS.BOARD_NUM,
@@ -152,11 +152,12 @@
         PS.USER_EMAIL,
         COUNT(LP.LIKE_NUM) AS LIKE_CNT,
 
-        (
-        SELECT COUNT(*) > 0
+        IFNULL((
+        SELECT 'Y'
         FROM LIKE_PLANT L2
-        WHERE L2.BOARD_NUM = PS.BOARD_NUM AND L2.USER_EMAIL = #{userEmail}
-        ) = TRUE AS IS_LIKE
+        WHERE L2.BOARD_NUM = PS.BOARD_NUM
+        AND L2.USER_EMAIL = IFNULL(#{userEmail}, '')
+        ), 'N') AS IS_LIKE
 
         FROM PLANT_STORY PS
         LEFT JOIN LIKE_PLANT LP ON PS.BOARD_NUM = LP.BOARD_NUM
@@ -165,6 +166,7 @@
         ORDER BY LIKE_CNT DESC
         LIMIT 10
     </select>
+
 
 
 
